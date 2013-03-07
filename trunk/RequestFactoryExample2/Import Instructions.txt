@@ -1,0 +1,20 @@
+From the Eclipse File menu select Import...
+In the Import dialog select the "Checkout Projects from SVN" from the SVN folder and then click Next (if there is no SVN folder then you'll need to install Subclipse into Eclipse)
+In the "Checkout from SVN" dialog select "Create a new repository location" and then click Next
+Enter http://gwt-request-factory-editor-framework-example.googlecode.com/svn/trunk into the Url and then click Next
+Select the RFExample2 folder and then click Finish
+In the "Select a wizard" dialog select "Web Application Project" from the Google folder and then click Next
+In the "Create a Web Application Project" enter a project name (e.g., RFExample2) and the package name org.greatlogic.rfexample2
+Uncheck the "Use Google App Engine" and "Generate project sample code" checkboxes and then click Finish
+Click OK if the "Confirm Overwrite" dialog is shown
+Add the Guava, javax.persistence, MySQL connector, and GLBase jars to the build path
+In the Package Explorer right click on the RFExample1 project and select Properties
+Under the "Java Compiler" entry click on the "Annotation Processing" entry
+Click to enable project specific settings
+Click on the "Factory Path" entry under the "Annotation Processing" entry
+Click to enable project specific settings
+Click "Add External JARs..." and add the requestfactory-apt.jar file
+In MySQL Workbench create a new schema named "RFExample"
+Create the BookClub table
+Edit the /war/cfg/RFExample2.cfg file to reflect the MySQL connection information
+Right click on the RFExample2 project and choose "Run As" -> "Web Application"
