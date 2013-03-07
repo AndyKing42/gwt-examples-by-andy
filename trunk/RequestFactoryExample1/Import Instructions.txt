@@ -1,0 +1,26 @@
+From the Eclipse File menu select Import...
+In the Import dialog select the "Checkout Projects from SVN" from the SVN folder and then click Next
+  (if there is no SVN folder then you'll need to install Subclipse into Eclipse)
+In the "Checkout from SVN" dialog select "Create a new repository location" and then click Next
+Enter http://gwt-request-factory-editor-framework-example.googlecode.com/svn/trunk into the Url and then click Next
+Select the RFExample1 folder and then click Finish
+In the Package Explorer right click on the RFExample1 project and select Properties
+In the Properties dialog open the Google item and click on "Web Toolkit"
+Click in the "Use Google Web Toolkit" checkbox and then click OK
+In the Package Explorer right click on the RFExample1 project and from the "Build Path" submenu select 'Configure Build Path..."
+On the Source tab of the "Java Build Path" dialog click on the RFExample1 entry and then click Remove
+Click on "Add Folder..." and select the "src" entry and then click OK
+Click on Browse... and highlight the /war/WEB-INF directory
+Click "Create New Folder..." and enter "classes" and then click OK and then click OK again
+On the "Java Build Path" dialog on the Source tab the default output folder should now be RFExample1/war/WEB-INF/classes
+Go to the Libraries tab on the "Java Build Path" dialog
+Click "Add External JARs..." and add the Guava and Javax persistence jars and then click OK to close the "Java Build Path" dialog
+I sometimes find that it's necessary to clean the project in Eclipse (alt-p followed by n) to clear some errors
+In the Package Explorer right click on the RFExample1 project and select Properties
+Under the "Java Compiler" entry click on the "Annotation Processing" entry
+Click to enable project specific settings (this will enable annotation processing)
+Click on the "Factory Path" entry under the "Annotation Processing" entry
+Click to enable project specific settings
+Click "Add External JARs..." and add the requestfactory-apt.jar file
+Right click on the RFExample1 project and choose "Run As" -> "Web Application"
+
