@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module rename-to='elementalfile'>
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
+  <inherits name='com.google.gwt.uibinder.UiBinder'/>
+  <inherits name='elemental.Elemental'/>
+  <entry-point class='org.greatlogic.elementalfile.client.ElementalFileEntryPoint'/>
+  <source path='client'/>
+</module>
