@@ -2,6 +2,7 @@ package org.greatlogic.placesandactivities.client.view;
 
 import org.greatlogic.placesandactivities.client.IClientFactory;
 import org.greatlogic.placesandactivities.client.activity.AppMenuActivity;
+import org.greatlogic.placesandactivities.client.view.interfaces.IAppMenuView;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.uibinder.client.UiBinder;
