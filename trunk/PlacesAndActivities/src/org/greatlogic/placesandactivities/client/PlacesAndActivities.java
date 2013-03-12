@@ -10,10 +10,10 @@ public class PlacesAndActivities implements EntryPoint {
 //--------------------------------------------------------------------------------------------------
 @Override
 public void onModuleLoad() {
-  SimpleEventBus eventBus = new SimpleEventBus();
-  IClientFactory clientFactory = GWT.create(UIClientFactory.class);
+  final SimpleEventBus eventBus = new SimpleEventBus();
+  final IClientFactory clientFactory = GWT.create(UIClientFactory.class);
   clientFactory.initialize(eventBus);
-  PlacesAndActivitiesView placesAndActivitiesView = new PlacesAndActivitiesView();
+  final PlacesAndActivitiesView placesAndActivitiesView = new PlacesAndActivitiesView();
   placesAndActivitiesView.initialize(clientFactory);
   RootLayoutPanel.get().add(placesAndActivitiesView.getTopLevelPanel());
 } // onModuleLoad()
