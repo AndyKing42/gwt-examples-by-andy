@@ -2,6 +2,7 @@ package org.greatlogic.placesandactivities.client.activity;
 
 import org.greatlogic.placesandactivities.client.IClientFactory;
 import org.greatlogic.placesandactivities.client.place.AppMenuPlace;
+import org.greatlogic.placesandactivities.client.view.interfaces.IAppMenuView;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
