@@ -1,7 +1,7 @@
 package org.greatlogic.placesandactivities.client.activity;
 
-import org.fosterapet.client.IClientFactory;
-import org.fosterapet.client.place.AppMenuPlace;
+import org.greatlogic.placesandactivities.client.IClientFactory;
+import org.greatlogic.placesandactivities.client.place.AppMenuPlace;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;

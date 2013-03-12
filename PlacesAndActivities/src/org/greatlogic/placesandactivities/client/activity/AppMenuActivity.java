@@ -1,6 +1,7 @@
 package org.greatlogic.placesandactivities.client.activity;
 
 import org.greatlogic.placesandactivities.client.IClientFactory;
+import org.greatlogic.placesandactivities.client.PlacesAndActivitiesEnums.EApp;
 import org.greatlogic.placesandactivities.client.place.AppMenuPlace;
 import org.greatlogic.placesandactivities.client.view.interfaces.IAppMenuView;
 import com.google.gwt.place.shared.Place;
