@@ -46,7 +46,7 @@ private void initializeMenuItems() {
     @Override
     public void execute() {
       if (_appMenuActivity != null) {
-        _appMenuActivity.goTo(new PetMaintenancePlace("pet"), EApp.PetMaintenance);
+        //        _appMenuActivity.goTo(new PetMaintenancePlace("pet"), EApp.PetMaintenance);
       }
     } // execute()
   });
@@ -54,7 +54,7 @@ private void initializeMenuItems() {
     @Override
     public void execute() {
       if (_appMenuActivity != null) {
-        _appMenuActivity.goTo(new OrgMaintenancePlace("org"), EApp.OrgMaintenance);
+        //        _appMenuActivity.goTo(new OrgMaintenancePlace("org"), EApp.OrgMaintenance);
       }
     } // execute()
   });

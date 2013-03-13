@@ -15,7 +15,7 @@ private IClientFactory _clientFactory;
 public static void initialize(final IClientFactory clientFactory) {
   ActivityMapper activityMapper = new WestActivityMapper(clientFactory);
   ActivityManager activityManager = new ActivityManager(activityMapper, clientFactory.getEventBus());
-  activityManager.setDisplay(clientFactory.getTopLevelView().getWestPanel());
+  //  activityManager.setDisplay(clientFactory.getTopLevelView().getWestPanel());
 } // initialize()
 //--------------------------------------------------------------------------------------------------
 private WestActivityMapper(final IClientFactory clientFactory) {

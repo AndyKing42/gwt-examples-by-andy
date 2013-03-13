@@ -19,7 +19,7 @@ private IClientFactory _clientFactory;
 public static void initialize(final IClientFactory clientFactory) {
   ActivityMapper activityMapper = new AppMenuActivityMapper(clientFactory);
   ActivityManager activityManager = new ActivityManager(activityMapper, clientFactory.getEventBus());
-  activityManager.setDisplay(clientFactory.getTopLevelView().getAppMenuPanel());
+  //  activityManager.setDisplay(clientFactory.getTopLevelView().getAppMenuPanel());
 } // initialize()
 
 //--------------------------------------------------------------------------------------------------
