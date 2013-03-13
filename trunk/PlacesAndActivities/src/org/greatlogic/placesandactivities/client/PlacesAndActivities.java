@@ -15,7 +15,7 @@ public void onModuleLoad() {
   clientFactory.initialize(eventBus);
   final PlacesAndActivitiesView placesAndActivitiesView = new PlacesAndActivitiesView();
   placesAndActivitiesView.initialize(clientFactory);
-  RootLayoutPanel.get().add(placesAndActivitiesView.getTopLevelPanel());
+  RootLayoutPanel.get().add(placesAndActivitiesView.getOuterPanel());
 } // onModuleLoad()
 //--------------------------------------------------------------------------------------------------
 }

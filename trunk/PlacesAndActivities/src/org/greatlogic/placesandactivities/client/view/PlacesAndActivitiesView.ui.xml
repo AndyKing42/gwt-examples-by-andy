@@ -2,8 +2,56 @@
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:g='urn:import:com.google.gwt.user.client.ui'>
-  <g:ResizeLayoutPanel ui:field='topLevelPanel'>
-    <g:SplitLayoutPanel ui:field='activitiesAndPlacesPanel'>
+  <g:SimpleLayoutPanel
+    ui:field='outerPanel'
+    height='100%'
+    width='100%'>
+    <g:SplitLayoutPanel>
+      <g:north size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='North1'/>
+        </g:SimpleLayoutPanel>
+      </g:north>
+      <g:south size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='South1'/>
+        </g:SimpleLayoutPanel>
+      </g:south>
+      <g:west size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='West1'/>
+        </g:SimpleLayoutPanel>
+      </g:west>
+      <g:east size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='East1'/>
+        </g:SimpleLayoutPanel>
+      </g:east>
+      <g:north size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='North2'/>
+        </g:SimpleLayoutPanel>
+      </g:north>
+      <g:south size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='South2'/>
+        </g:SimpleLayoutPanel>
+      </g:south>
+      <g:west size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='West2'/>
+        </g:SimpleLayoutPanel>
+      </g:west>
+      <g:east size='50'>
+        <g:SimpleLayoutPanel>
+          <g:Label text='East2'/>
+        </g:SimpleLayoutPanel>
+      </g:east>
+      <g:center>
+        <g:SimpleLayoutPanel>
+          <g:Label text='Center'/>
+        </g:SimpleLayoutPanel>
+      </g:center>
     </g:SplitLayoutPanel>
-  </g:ResizeLayoutPanel>
+  </g:SimpleLayoutPanel>
 </ui:UiBinder>
