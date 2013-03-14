@@ -23,6 +23,7 @@ MenuBar                 menuBar;
 ResizeLayoutPanel       menuPanel;
 @UiField
 MenuItem                orgMaintenanceMenuItem;
+
 private AppMenuActivity _appMenuActivity;
 //--------------------------------------------------------------------------------------------------
 interface IAppMenuViewUiBinder extends UiBinder<Panel, AppMenuView> { //
