@@ -10,6 +10,12 @@
         <g:Button
           ui:field='addRecordButton'
           text='Add Record'/>
+        <g:Button
+          ui:field='add10RecordsButton'
+          text='Add 10 Records'/>
+        <g:Button
+          ui:field='add100RecordsButton'
+          text='Add 100 Records'/>
         <g:Label ui:field='numberOfRecordsLabel'/>
       </g:HorizontalPanel>
     </g:HeaderPanel>

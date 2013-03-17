@@ -22,6 +22,10 @@ import com.google.gwt.user.client.ui.Widget;
 public class DataGridInHeaderPanel implements EntryPoint {
 
 @UiField
+Button                    add100RecordsButton;
+@UiField
+Button                    add10RecordsButton;
+@UiField
 Button                    addRecordButton;
 @UiField(provided = true)
 DataGrid<Record>          dataGrid;
@@ -70,11 +74,27 @@ private ResizeHandler createLayoutPanelResizeHandler() {
   };
 }
 
+@UiHandler("add100RecordsButton")
+public void onAdd100RecordsButtonClick(@SuppressWarnings("unused") final ClickEvent event) {
+  addRecords(100);
+}
+
+@UiHandler("add10RecordsButton")
+public void onAdd10RecordsButtonClick(@SuppressWarnings("unused") final ClickEvent event) {
+  addRecords(10);
+}
+
 @UiHandler("addRecordButton")
 public void onAddRecordButtonClick(@SuppressWarnings("unused") final ClickEvent event) {
-  Record record = new Record();
-  record._field1 = "Record " + (_recordList.size() + 1);
-  _recordList.add(record);
+  addRecords(1);
+}
+
+private void addRecords(final int numberOfrecords) {
+  for (int recordCount = 0; recordCount < numberOfrecords; ++recordCount) {
+    Record record = new Record();
+    record._field1 = "Record " + (_recordList.size() + 1);
+    _recordList.add(record);
+  }
   dataGrid.setRowData(_recordList);
   dataGrid.setRowCount(_recordList.size(), true);
   numberOfRecordsLabel.setText("Records:" + _recordList.size());
