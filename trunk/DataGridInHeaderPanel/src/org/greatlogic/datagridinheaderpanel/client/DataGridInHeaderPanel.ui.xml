@@ -4,7 +4,7 @@
   xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
   <g:ResizeLayoutPanel ui:field='topLayoutPanel'>
     <g:HeaderPanel ui:field='headerPanel'>
-      <g:SimplePanel/>
+      <g:Label text='Top Panel'/>
       <c:DataGrid ui:field='dataGrid'/>
       <g:HorizontalPanel>
         <g:Button
