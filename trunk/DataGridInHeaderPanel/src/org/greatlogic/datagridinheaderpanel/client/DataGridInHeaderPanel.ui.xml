@@ -6,14 +6,12 @@
     <g:HeaderPanel ui:field='headerPanel'>
       <g:SimplePanel/>
       <c:DataGrid ui:field='dataGrid'/>
-      <g:FlowPanel>
-        <g:HorizontalPanel ui:field='addRecordPanel'>
-          <g:Button
-            ui:field='addRecordButton'
-            text='Add Record'/>
-          <g:Label ui:field='numberOfRecordsLabel'/>
-        </g:HorizontalPanel>
-      </g:FlowPanel>
+      <g:HorizontalPanel>
+        <g:Button
+          ui:field='addRecordButton'
+          text='Add Record'/>
+        <g:Label ui:field='numberOfRecordsLabel'/>
+      </g:HorizontalPanel>
     </g:HeaderPanel>
   </g:ResizeLayoutPanel>
 </ui:UiBinder>

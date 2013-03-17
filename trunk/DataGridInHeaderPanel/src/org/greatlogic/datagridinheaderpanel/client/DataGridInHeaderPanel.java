@@ -14,7 +14,6 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HeaderPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -24,8 +23,6 @@ public class DataGridInHeaderPanel implements EntryPoint {
 
 @UiField
 Button                    addRecordButton;
-@UiField
-HorizontalPanel           addRecordPanel;
 @UiField(provided = true)
 DataGrid<Record>          dataGrid;
 @UiField
@@ -37,7 +34,7 @@ ResizeLayoutPanel         topLayoutPanel;
 
 private ArrayList<Record> _recordList;
 
-interface DataGridInHeaderPanelBinder extends UiBinder<Widget, DataGridInHeaderPanel> {
+interface DataGridInHeaderPanelBinder extends UiBinder<Widget, DataGridInHeaderPanel> { //
 }
 
 private static class Record {
@@ -74,7 +71,7 @@ private ResizeHandler createLayoutPanelResizeHandler() {
 }
 
 @UiHandler("addRecordButton")
-public void onAddRecordButtonClick(final ClickEvent event) {
+public void onAddRecordButtonClick(@SuppressWarnings("unused") final ClickEvent event) {
   Record record = new Record();
   record._field1 = "Record " + (_recordList.size() + 1);
   _recordList.add(record);
