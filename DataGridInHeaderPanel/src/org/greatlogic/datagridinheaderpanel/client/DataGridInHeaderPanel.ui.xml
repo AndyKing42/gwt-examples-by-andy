@@ -2,16 +2,18 @@
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
   xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
-  <g:HeaderPanel>
-    <g:SimplePanel/>
-    <g:ResizeLayoutPanel>
+  <g:ResizeLayoutPanel ui:field='topLayoutPanel'>
+    <g:HeaderPanel ui:field='headerPanel'>
+      <g:SimplePanel/>
       <c:DataGrid ui:field='dataGrid'/>
-    </g:ResizeLayoutPanel>
-    <g:HorizontalPanel>
-      <g:Button
-        ui:field='addRecordButton'
-        text='Add Record'/>
-      <g:Label ui:field='numberOfRecordsLabel'/>
-    </g:HorizontalPanel>
-  </g:HeaderPanel>
+      <g:FlowPanel>
+        <g:HorizontalPanel ui:field='addRecordPanel'>
+          <g:Button
+            ui:field='addRecordButton'
+            text='Add Record'/>
+          <g:Label ui:field='numberOfRecordsLabel'/>
+        </g:HorizontalPanel>
+      </g:FlowPanel>
+    </g:HeaderPanel>
+  </g:ResizeLayoutPanel>
 </ui:UiBinder>
