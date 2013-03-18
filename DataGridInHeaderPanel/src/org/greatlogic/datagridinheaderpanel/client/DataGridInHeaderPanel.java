@@ -49,9 +49,9 @@ private String _field1;
 public void onModuleLoad() {
   dataGrid = new DataGrid<Record>();
   _recordList = new ArrayList<Record>();
-  DataGridInHeaderPanelBinder binder = GWT.create(DataGridInHeaderPanelBinder.class);
-  Widget widget = binder.createAndBindUi(this);
-  Column<Record, String> field1Column = new Column<Record, String>(new TextInputCell()) {
+  final DataGridInHeaderPanelBinder binder = GWT.create(DataGridInHeaderPanelBinder.class);
+  final Widget widget = binder.createAndBindUi(this);
+  final Column<Record, String> field1Column = new Column<Record, String>(new TextInputCell()) {
     @Override
     public String getValue(final Record record) {
       return record._field1;
@@ -65,10 +65,10 @@ public void onModuleLoad() {
 private ResizeHandler createLayoutPanelResizeHandler() {
   return new ResizeHandler() {
     @Override
-    public void onResize(ResizeEvent event) {
-      int dataGridHeight = headerPanel.getOffsetHeight() -
-                           headerPanel.getHeaderWidget().getOffsetHeight() -
-                           headerPanel.getFooterWidget().getOffsetHeight();
+    public void onResize(final ResizeEvent event) {
+      final int dataGridHeight = headerPanel.getOffsetHeight() -
+                                 headerPanel.getHeaderWidget().getOffsetHeight() -
+                                 headerPanel.getFooterWidget().getOffsetHeight();
       dataGrid.setHeight((dataGridHeight < 0 ? 0 : dataGridHeight) + "px");
     }
   };
@@ -89,9 +89,9 @@ public void onAddRecordButtonClick(@SuppressWarnings("unused") final ClickEvent 
   addRecords(1);
 }
 
-private void addRecords(final int numberOfrecords) {
-  for (int recordCount = 0; recordCount < numberOfrecords; ++recordCount) {
-    Record record = new Record();
+private void addRecords(final int numberOfRecords) {
+  for (int recordCount = 0; recordCount < numberOfRecords; ++recordCount) {
+    final Record record = new Record();
     record._field1 = "Record " + (_recordList.size() + 1);
     _recordList.add(record);
   }
