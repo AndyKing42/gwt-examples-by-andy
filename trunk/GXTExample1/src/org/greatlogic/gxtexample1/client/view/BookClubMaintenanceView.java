@@ -1,8 +1,18 @@
 package org.greatlogic.gxtexample1.client.view;
 
+import org.greatlogic.gxtexample1.client.IClientFactory;
+import org.greatlogic.gxtexample1.client.event.BookClubListPositionChangedEvent;
+import org.greatlogic.gxtexample1.client.event.BookClubListPositionChangedEvent.IBookClubListPositionChangedEventHandler;
+import org.greatlogic.gxtexample1.client.event.BookClubNameChangeEvent;
+import org.greatlogic.gxtexample1.client.event.BookClubNameChangeEvent.IBookClubNameChangeEventHandler;
+import org.greatlogic.gxtexample1.client.event.BookClubSelectedEvent;
+import org.greatlogic.gxtexample1.client.event.BookClubSelectedEvent.IBookClubSelectedEventHandler;
+import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent;
+import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent.IBookClubsLoadedEventHandler;
+import org.greatlogic.gxtexample1.client.model.IBookClubProxy;
+import org.greatlogic.gxtexample1.client.widget.BookClubMaintenanceWidget;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -10,19 +20,10 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
-import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
-import org.greatlogic.gxtexample1.client.event.BookClubListPositionChangedEvent;
-import org.greatlogic.gxtexample1.client.event.BookClubNameChangeEvent;
-import org.greatlogic.gxtexample1.client.event.BookClubSelectedEvent;
-import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent;
-import org.greatlogic.gxtexample1.client.event.BookClubListPositionChangedEvent.IBookClubListPositionChangedEventHandler;
-import org.greatlogic.gxtexample1.client.event.BookClubNameChangeEvent.IBookClubNameChangeEventHandler;
-import org.greatlogic.gxtexample1.client.event.BookClubSelectedEvent.IBookClubSelectedEventHandler;
-import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent.IBookClubsLoadedEventHandler;
-import org.greatlogic.gxtexample1.client.model.IBookClubProxy;
-import org.greatlogic.gxtexample1.client.widget.BookClubMaintenanceWidget;
-import org.greatlogic.rfexample1.client.IClientFactory;
+import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
 
 public class BookClubMaintenanceView extends Composite implements
                                                       IBookClubListPositionChangedEventHandler,
@@ -33,11 +34,13 @@ public class BookClubMaintenanceView extends Composite implements
 @UiField
 ListBox                   bookClubListBox;
 @UiField
-SplitLayoutPanel          bookClubMaintenancePanel;
+BorderLayoutContainer     bookClubMaintenanceContainer;
 @UiField(provided = true)
 BookClubMaintenanceWidget bookClubMaintenanceWidget;
 @UiField
 ResizeLayoutPanel         topLevelPanel;
+@UiField(provided = true)
+BorderLayoutData          westLayoutData;
 
 private IClientFactory    _clientFactory;
 //==================================================================================================
@@ -50,10 +53,11 @@ public ResizeLayoutPanel getTopLevelPanel() {
 //--------------------------------------------------------------------------------------------------
 public void initialize(final IClientFactory clientFactory) {
   _clientFactory = clientFactory;
+  westLayoutData = new BorderLayoutData(150);
   bookClubMaintenanceWidget = new BookClubMaintenanceWidget(_clientFactory);
-  IBookClubMaintenanceViewUiBinder binder = GWT.create(IBookClubMaintenanceViewUiBinder.class);
+  final IBookClubMaintenanceViewUiBinder binder = GWT.create(IBookClubMaintenanceViewUiBinder.class);
   binder.createAndBindUi(this);
-  bookClubMaintenancePanel.setWidgetToggleDisplayAllowed(bookClubListBox, true);
+  bookClubMaintenanceContainer.setWidget(bookClubListBox);
   _clientFactory.getRequestFactory().getEventBus().addHandler(BookClubListPositionChangedEvent.BookClubListPositionChangedEventType,
                                                               this);
   _clientFactory.getRequestFactory().getEventBus().addHandler(BookClubNameChangeEvent.BookClubNameChangeEventType,
@@ -67,15 +71,15 @@ public void initialize(final IClientFactory clientFactory) {
 //--------------------------------------------------------------------------------------------------
 @SuppressWarnings("unused")
 @UiHandler("newButton")
-public void onNewButtonClick(final ClickEvent clickEvent) {
+public void onNewButtonSelect(final SelectEvent event) {
   requestConfirmationToSaveCurrentChanges();
   bookClubMaintenanceWidget.editBookClub(null);
   //  _handlerRegistration.removeHandler();
-} // onNewButtonClick()
+} // onNewButtonSelect()
 //--------------------------------------------------------------------------------------------------
 @Override
 public void onBookClubListPositionChangedEvent(final BookClubListPositionChangedEvent bookClubListPositionChangedEvent) {
-  IBookClubProxy bookClub = bookClubListPositionChangedEvent.getBookClub();
+  final IBookClubProxy bookClub = bookClubListPositionChangedEvent.getBookClub();
   if (bookClubListPositionChangedEvent.getRemoveIndex() >= 0) {
     bookClubListBox.removeItem(bookClubListPositionChangedEvent.getRemoveIndex());
   }
@@ -88,9 +92,9 @@ public void onBookClubListPositionChangedEvent(final BookClubListPositionChanged
 @SuppressWarnings("unused")
 @UiHandler("bookClubListBox")
 public void onBookClubListBoxChange(final ChangeEvent event) {
-  int selectedIndex = bookClubListBox.getSelectedIndex();
+  final int selectedIndex = bookClubListBox.getSelectedIndex();
   if (selectedIndex >= 0) {
-    int bookClubId = Integer.parseInt(bookClubListBox.getValue(selectedIndex));
+    final int bookClubId = Integer.parseInt(bookClubListBox.getValue(selectedIndex));
     _clientFactory.getEventBus().fireEvent(new BookClubSelectedEvent(bookClubId));
   }
 } // onBookClubListBoxChange()
@@ -111,31 +115,31 @@ public void onBookClubNameChangeEvent(final BookClubNameChangeEvent bookClubName
 @Override
 public void onBookClubSelectedEvent(final BookClubSelectedEvent bookClubSelectedEvent) {
   requestConfirmationToSaveCurrentChanges();
-  IBookClubProxy bookClub = _clientFactory.getBookClubCache().getBookClub(bookClubSelectedEvent.getBookClubId());
+  final IBookClubProxy bookClub = _clientFactory.getBookClubCache().getBookClub(bookClubSelectedEvent.getBookClubId());
   bookClubMaintenanceWidget.editBookClub(bookClub);
 } // onBookClubSelectedEvent()
 //--------------------------------------------------------------------------------------------------
 @Override
 public void onBookClubsLoadedEvent(final BookClubsLoadedEvent bookClubsLoadedEvent) {
   bookClubListBox.clear();
-  for (IBookClubProxy bookClub : _clientFactory.getBookClubCache().getBookClubList()) {
+  for (final IBookClubProxy bookClub : _clientFactory.getBookClubCache().getBookClubList()) {
     bookClubListBox.addItem(bookClub.getName(), Integer.toString(bookClub.getId()));
   }
 } // onBookClubsLoadedEvent()
 //--------------------------------------------------------------------------------------------------
 @SuppressWarnings("unused")
 @UiHandler("saveButton")
-public void onSaveButtonClick(final ClickEvent clickEvent) {
+public void onSaveButtonSelect(final SelectEvent selectEvent) {
   if (bookClubMaintenanceWidget.getBookClub() != null) {
     bookClubMaintenanceWidget.saveCurrentChanges();
   }
-} // onSaveButtonClick()
+} // onSaveButtonSelect()
 //--------------------------------------------------------------------------------------------------
 @SuppressWarnings("unused")
 @UiHandler("undoButton")
-public void onUndoButtonClick(final ClickEvent clickEvent) {
+public void onUndoButtonSelect(final SelectEvent selectEvent) {
   bookClubMaintenanceWidget.undoCurrentChanges();
-} // onUndoButtonClick()
+} // onUndoButtonSelect()
 //--------------------------------------------------------------------------------------------------
 private void requestConfirmationToSaveCurrentChanges() {
   if (bookClubMaintenanceWidget.isChanged()) {

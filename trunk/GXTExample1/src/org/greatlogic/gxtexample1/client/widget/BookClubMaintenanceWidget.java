@@ -14,7 +14,7 @@ import org.greatlogic.gxtexample1.client.event.BookClubNameChangeEvent;
 import org.greatlogic.gxtexample1.client.model.IBookClubProxy;
 import org.greatlogic.gxtexample1.client.model.BookClubCache.EUpdateType;
 import org.greatlogic.gxtexample1.shared.IBookClubRequestContext;
-import org.greatlogic.rfexample1.client.IClientFactory;
+import org.greatlogic.gxtexample1.client.IClientFactory;
 
 public class BookClubMaintenanceWidget extends Composite implements Editor<IBookClubProxy> {
 //--------------------------------------------------------------------------------------------------
@@ -24,9 +24,9 @@ TextBox                         desc;
 TextBox                         name;
 
 private IBookClubProxy          _bookClub;              // the current BookClub that is being edited
-private IBookClubEditorDriver   _bookClubEditorDriver;
+private final IBookClubEditorDriver   _bookClubEditorDriver;
 private IBookClubRequestContext _bookClubRequestContext;
-private IClientFactory          _clientFactory;
+private final IClientFactory          _clientFactory;
 private IBookClubProxy          _originalBookClub;      // used if there is a request to undo changes
 private EUpdateType             _updateType;
 //==================================================================================================
@@ -39,7 +39,7 @@ interface IBookClubMaintenanceBinder extends UiBinder<Widget, BookClubMaintenanc
 //==================================================================================================
 public BookClubMaintenanceWidget(final IClientFactory clientFactory) {
   _clientFactory = clientFactory;
-  IBookClubMaintenanceBinder binder = GWT.create(IBookClubMaintenanceBinder.class);
+  final IBookClubMaintenanceBinder binder = GWT.create(IBookClubMaintenanceBinder.class);
   initWidget(binder.createAndBindUi(this));
   _bookClubEditorDriver = GWT.create(IBookClubEditorDriver.class);
   _bookClubEditorDriver.initialize(_clientFactory.getRequestFactory().getEventBus(),

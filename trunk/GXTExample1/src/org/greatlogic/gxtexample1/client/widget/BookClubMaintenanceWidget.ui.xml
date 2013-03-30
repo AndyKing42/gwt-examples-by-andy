@@ -1,6 +1,7 @@
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
-  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:gxt='urn:import:com.sencha.gxt.widget.core.client'>
   <g:VerticalPanel>
     <g:HorizontalPanel>
       <g:Label>Name</g:Label>

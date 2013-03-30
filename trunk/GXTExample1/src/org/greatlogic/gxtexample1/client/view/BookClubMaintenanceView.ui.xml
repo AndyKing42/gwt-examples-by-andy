@@ -2,35 +2,36 @@
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:button='urn:import:com.sencha.gxt.widget.core.client.button'
+  xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
   xmlns:fap='urn:import:org.greatlogic.gxtexample1.client.widget'>
+  <ui:with
+    type='com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData'
+    field='westLayoutData'/>
   <g:ResizeLayoutPanel ui:field='topLevelPanel'>
-    <g:SplitLayoutPanel ui:field='bookClubMaintenancePanel'>
-      <g:west size='250'>
+    <container:BorderLayoutContainer ui:field='bookClubMaintenanceContainer'>
+      <container:west layoutData='{westLayoutData}'>
         <!--The visibleItemCount just ensures that the ListBox is not a combobox; -->
         <!-- it doesn't actually affect the visible size in this case. -->
         <g:ListBox
           ui:field='bookClubListBox'
           visibleItemCount='2'>
         </g:ListBox>
-      </g:west>
-      <g:center>
-        <g:DockLayoutPanel>
-          <g:north size='30'>
-            <g:HorizontalPanel>
-              <g:Button ui:field='newButton'>New</g:Button>
-              <g:Button ui:field='undoButton'>Undo</g:Button>
-              <g:Button ui:field='saveButton'>Save</g:Button>
-            </g:HorizontalPanel>
-          </g:north>
-          <g:center>
-            <g:ScrollPanel>
-              <g:VerticalPanel>
-                <fap:BookClubMaintenanceWidget ui:field='bookClubMaintenanceWidget'/>
-              </g:VerticalPanel>
-            </g:ScrollPanel>
-          </g:center>
-        </g:DockLayoutPanel>
-      </g:center>
-    </g:SplitLayoutPanel>
+      </container:west>
+      <container:center>
+        <container:VerticalLayoutContainer>
+          <button:ButtonBar>
+            <button:TextButton ui:field='newButton'>New</button:TextButton>
+            <button:TextButton ui:field='undoButton'>Undo</button:TextButton>
+            <button:TextButton ui:field='saveButton'>Save</button:TextButton>
+          </button:ButtonBar>
+          <container:VBoxLayoutContainer vBoxLayoutAlign='LEFT'>
+            <container:child>
+              <fap:BookClubMaintenanceWidget ui:field='bookClubMaintenanceWidget'/>
+            </container:child>
+          </container:VBoxLayoutContainer>
+        </container:VerticalLayoutContainer>
+      </container:center>
+    </container:BorderLayoutContainer>
   </g:ResizeLayoutPanel>
 </ui:UiBinder>
