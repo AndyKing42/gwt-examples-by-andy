@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<module rename-to='gxtexample1'>
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+  <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/> -->
+  <inherits name='com.google.gwt.uibinder.UiBinder'/>
+  <inherits name='com.google.gwt.activity.Activity'/>
+  <inherits name='com.google.gwt.place.Place'/>
+  <inherits name='com.google.web.bindery.requestfactory.RequestFactory'/>
+  <inherits name='com.sencha.gxt.ui.GXT'/>
+  <entry-point class='org.greatlogic.gxtexample1.client.GXTExample1'/>
+  <replace-with class='org.greatlogic.gxtexample1.client.IClientFactory'>
+    <when-type-is class='org.greatlogic.gxtexample1.client.IClientFactory'/>
+  </replace-with>
+  <source path='client'/>
+  <source path='shared'/>
+</module>
