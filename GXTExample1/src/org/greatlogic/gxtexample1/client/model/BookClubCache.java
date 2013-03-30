@@ -8,7 +8,7 @@ import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent;
 import org.greatlogic.gxtexample1.client.event.SaveBookClubEvent;
 import org.greatlogic.gxtexample1.client.event.SaveBookClubEvent.ISaveBookClubEventHandler;
 import org.greatlogic.gxtexample1.shared.IBookClubRequestContext;
-import org.greatlogic.rfexample1.client.IClientFactory;
+import org.greatlogic.gxtexample1.client.IClientFactory;
 import com.google.gwt.user.client.Random;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
@@ -25,8 +25,8 @@ Update
 } // enum EUpdateType
 //==================================================================================================
 IBookClubProxy createBookClub(final IBookClubRequestContext bookClubRequestContext) {
-  IBookClubProxy result = bookClubRequestContext.create(IBookClubProxy.class);
-  int id = Random.nextInt(10000);
+  final IBookClubProxy result = bookClubRequestContext.create(IBookClubProxy.class);
+  final int id = Random.nextInt(10000);
   result.setId(id);
   result.setVersion(0);
   return result;
@@ -64,7 +64,7 @@ public void loadAllBookClubs() {
 protected void loadBookClubsIntoCache(final List<IBookClubProxy> bookClubList) {
   _bookClubList = bookClubList;
   _bookClubMap = new TreeMap<Integer, IBookClubProxy>();
-  for (IBookClubProxy bookClub : _bookClubList) {
+  for (final IBookClubProxy bookClub : _bookClubList) {
     _bookClubMap.put(bookClub.getId(), bookClub);
   }
   _clientFactory.getEventBus().fireEvent(new BookClubsLoadedEvent());
@@ -76,7 +76,7 @@ public final IBookClubProxy newBookClub(final IBookClubRequestContext bookClubRe
 //--------------------------------------------------------------------------------------------------
 @Override
 public void onSaveBookClubEvent(final SaveBookClubEvent saveBookClubEvent) {
-  IBookClubProxy bookClub = saveBookClubEvent.getBookClub();
+  final IBookClubProxy bookClub = saveBookClubEvent.getBookClub();
   if (bookClub != null) {
     // update the cache
     // send update to server
