@@ -2,36 +2,80 @@
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:gxt='urn:import:com.sencha.gxt.widget.core.client'
   xmlns:button='urn:import:com.sencha.gxt.widget.core.client.button'
   xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
   xmlns:fap='urn:import:org.greatlogic.gxtexample1.client.widget'>
+  <ui:style>
+    .centerMargin {
+    	margin: 10px;
+    }
+  </ui:style>
+  <ui:with
+    type="com.sencha.gxt.widget.core.client.container.MarginData"
+    field="outerData"/>
+  <ui:with
+    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
+    field="northData"/>
+  <ui:with
+    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
+    field="westData"/>
+  <ui:with
+    type="com.sencha.gxt.widget.core.client.container.MarginData"
+    field="centerData"/>
+  <ui:with
+    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
+    field="eastData"/>
+  <ui:with
+    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
+    field="southData"/>
   <ui:with
     type='com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData'
     field='westLayoutData'/>
-  <g:ResizeLayoutPanel ui:field='topLevelPanel'>
-    <container:BorderLayoutContainer ui:field='bookClubMaintenanceContainer'>
-      <container:west layoutData='{westLayoutData}'>
-        <!--The visibleItemCount just ensures that the ListBox is not a combobox; -->
-        <!-- it doesn't actually affect the visible size in this case. -->
-        <g:ListBox
-          ui:field='bookClubListBox'
-          visibleItemCount='2'>
-        </g:ListBox>
-      </container:west>
-      <container:center>
-        <container:VerticalLayoutContainer>
-          <button:ButtonBar>
-            <button:TextButton ui:field='newButton'>New</button:TextButton>
-            <button:TextButton ui:field='undoButton'>Undo</button:TextButton>
-            <button:TextButton ui:field='saveButton'>Save</button:TextButton>
-          </button:ButtonBar>
-          <container:VBoxLayoutContainer vBoxLayoutAlign='LEFT'>
-            <container:child>
-              <fap:BookClubMaintenanceWidget ui:field='bookClubMaintenanceWidget'/>
-            </container:child>
-          </container:VBoxLayoutContainer>
-        </container:VerticalLayoutContainer>
-      </container:center>
-    </container:BorderLayoutContainer>
-  </g:ResizeLayoutPanel>
+  <container:SimpleContainer ui:field='topLevelContainer'>
+    <container:child layoutData="{outerData}">
+      <container:BorderLayoutContainer
+        ui:field="con"
+        borders="true">
+        <container:north layoutData="{northData}">
+          <gxt:ContentPanel/>
+        </container:north>
+        <container:west layoutData="{westData}">
+          <gxt:ContentPanel>
+            <!--The visibleItemCount just ensures that the ListBox is not a combobox; -->
+            <!-- it doesn't actually affect the visible size in this case. -->
+            <g:ListBox
+              ui:field='bookClubListBox'
+              visibleItemCount='2'>
+            </g:ListBox>
+          </gxt:ContentPanel>
+        </container:west>
+        <container:center layoutData="{centerData}">
+          <gxt:ContentPanel>
+            <fap:BookClubMaintenanceWidget ui:field='bookClubMaintenanceWidget'/>
+          </gxt:ContentPanel>
+        </container:center>
+        <container:east layoutData="{eastData}">
+          <gxt:ContentPanel>
+            <container:VBoxLayoutContainer vBoxLayoutAlign='LEFT'>
+              <g:FlexTable
+                ui:field="table"
+                addStyleNames="{style.centerMargin}"
+                cellSpacing="8"
+                cellPadding="4"/>
+            </container:VBoxLayoutContainer>
+          </gxt:ContentPanel>
+        </container:east>
+        <container:south layoutData="{southData}">
+          <gxt:ContentPanel>
+            <button:ButtonBar>
+              <button:TextButton ui:field='newButton'>New</button:TextButton>
+              <button:TextButton ui:field='undoButton'>Undo</button:TextButton>
+              <button:TextButton ui:field='saveButton'>Save</button:TextButton>
+            </button:ButtonBar>
+          </gxt:ContentPanel>
+        </container:south>
+      </container:BorderLayoutContainer>
+    </container:child>
+  </container:SimpleContainer>
 </ui:UiBinder>

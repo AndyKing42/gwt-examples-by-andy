@@ -20,7 +20,7 @@ public void onModuleLoad() {
   bookClubCache.initialize(clientFactory);
   final BookClubMaintenanceView bookClubMaintenanceView = new BookClubMaintenanceView();
   bookClubMaintenanceView.initialize(clientFactory);
-  RootLayoutPanel.get().add(bookClubMaintenanceView.getTopLevelPanel());
+  RootLayoutPanel.get().add(bookClubMaintenanceView.getTopLevelContainer());
 } // onModuleLoad()
 //--------------------------------------------------------------------------------------------------
 }
