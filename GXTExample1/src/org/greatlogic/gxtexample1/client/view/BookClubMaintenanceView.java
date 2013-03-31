@@ -18,12 +18,18 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.ResizeLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.Style.LayoutRegion;
+import com.sencha.gxt.core.client.util.Margins;
+import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData;
+import com.sencha.gxt.widget.core.client.container.MarginData;
+import com.sencha.gxt.widget.core.client.container.SimpleContainer;
 import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 
 public class BookClubMaintenanceView extends Composite implements
                                                       IBookClubListPositionChangedEventHandler,
@@ -31,14 +37,31 @@ public class BookClubMaintenanceView extends Composite implements
                                                       IBookClubSelectedEventHandler,
                                                       IBookClubsLoadedEventHandler {
 //--------------------------------------------------------------------------------------------------
+@UiField(provided = true)
+MarginData                outerData  = new MarginData(20);
+@UiField(provided = true)
+BorderLayoutData          northData  = new BorderLayoutData(100);
+@UiField(provided = true)
+BorderLayoutData          westData   = new BorderLayoutData(150);
+@UiField(provided = true)
+MarginData                centerData = new MarginData();
+@UiField(provided = true)
+BorderLayoutData          eastData   = new BorderLayoutData(150);
+@UiField(provided = true)
+BorderLayoutData          southData  = new BorderLayoutData(100);
+@UiField
+BorderLayoutContainer     con;
+@UiField
+FlexTable                 table;
+
 @UiField
 ListBox                   bookClubListBox;
-@UiField
-BorderLayoutContainer     bookClubMaintenanceContainer;
+//@UiField
+//BorderLayoutContainer     bookClubMaintenanceContainer;
 @UiField(provided = true)
 BookClubMaintenanceWidget bookClubMaintenanceWidget;
 @UiField
-ResizeLayoutPanel         topLevelPanel;
+SimpleContainer           topLevelContainer;
 @UiField(provided = true)
 BorderLayoutData          westLayoutData;
 
@@ -47,17 +70,23 @@ private IClientFactory    _clientFactory;
 public interface IBookClubMaintenanceViewUiBinder extends UiBinder<Widget, BookClubMaintenanceView> { //
 } // interface IBookClubMaintenanceViewUiBinder
 //==================================================================================================
-public ResizeLayoutPanel getTopLevelPanel() {
-  return topLevelPanel;
-} // getTopLevelPanel()
+public SimpleContainer getTopLevelContainer() {
+  return topLevelContainer;
+} // getTopLevelContainer()
 //--------------------------------------------------------------------------------------------------
 public void initialize(final IClientFactory clientFactory) {
   _clientFactory = clientFactory;
+  northData.setMargins(new Margins(5));
+  westData.setMargins(new Margins(0, 5, 0, 5));
+  westData.setCollapsible(true);
+  westData.setSplit(true);
+  eastData.setMargins(new Margins(0, 5, 0, 5));
+  southData.setMargins(new Margins(5));
   westLayoutData = new BorderLayoutData(150);
   bookClubMaintenanceWidget = new BookClubMaintenanceWidget(_clientFactory);
   final IBookClubMaintenanceViewUiBinder binder = GWT.create(IBookClubMaintenanceViewUiBinder.class);
   binder.createAndBindUi(this);
-  bookClubMaintenanceContainer.setWidget(bookClubListBox);
+  //  bookClubMaintenanceContainer.setWidget(bookClubListBox);
   _clientFactory.getRequestFactory().getEventBus().addHandler(BookClubListPositionChangedEvent.BookClubListPositionChangedEventType,
                                                               this);
   _clientFactory.getRequestFactory().getEventBus().addHandler(BookClubNameChangeEvent.BookClubNameChangeEventType,
