@@ -9,27 +9,12 @@ import org.greatlogic.gxtexample1.client.event.BookClubSelectedEvent;
 import org.greatlogic.gxtexample1.client.event.BookClubSelectedEvent.IBookClubSelectedEventHandler;
 import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent;
 import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent.IBookClubsLoadedEventHandler;
-import org.greatlogic.gxtexample1.client.model.IBookClubProxy;
-import org.greatlogic.gxtexample1.client.widget.BookClubMaintenanceWidget;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.sencha.gxt.core.client.Style.LayoutRegion;
-import com.sencha.gxt.core.client.util.Margins;
-import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
-import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData;
-import com.sencha.gxt.widget.core.client.container.MarginData;
-import com.sencha.gxt.widget.core.client.container.SimpleContainer;
-import com.sencha.gxt.widget.core.client.event.SelectEvent;
-import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 
 public class BookClubMaintenanceView extends Composite implements
                                                       IBookClubListPositionChangedEventHandler,
@@ -37,53 +22,25 @@ public class BookClubMaintenanceView extends Composite implements
                                                       IBookClubSelectedEventHandler,
                                                       IBookClubsLoadedEventHandler {
 //--------------------------------------------------------------------------------------------------
-@UiField(provided = true)
-MarginData                outerData  = new MarginData(20);
-@UiField(provided = true)
-BorderLayoutData          northData  = new BorderLayoutData(100);
-@UiField(provided = true)
-BorderLayoutData          westData   = new BorderLayoutData(150);
-@UiField(provided = true)
-MarginData                centerData = new MarginData();
-@UiField(provided = true)
-BorderLayoutData          eastData   = new BorderLayoutData(150);
-@UiField(provided = true)
-BorderLayoutData          southData  = new BorderLayoutData(100);
-@UiField
-BorderLayoutContainer     con;
-@UiField
-FlexTable                 table;
-
-@UiField
-ListBox                   bookClubListBox;
 //@UiField
-//BorderLayoutContainer     bookClubMaintenanceContainer;
-@UiField(provided = true)
-BookClubMaintenanceWidget bookClubMaintenanceWidget;
+//ListBox                   bookClubListBox;
+//@UiField(provided = true)
+//BookClubMaintenanceWidget bookClubMaintenanceWidget;
 @UiField
-SimpleContainer           topLevelContainer;
-@UiField(provided = true)
-BorderLayoutData          westLayoutData;
+BorderLayoutContainer  topLevelContainer;
 
-private IClientFactory    _clientFactory;
+private IClientFactory _clientFactory;
 //==================================================================================================
 public interface IBookClubMaintenanceViewUiBinder extends UiBinder<Widget, BookClubMaintenanceView> { //
 } // interface IBookClubMaintenanceViewUiBinder
 //==================================================================================================
-public SimpleContainer getTopLevelContainer() {
+public BorderLayoutContainer getTopLevelContainer() {
   return topLevelContainer;
 } // getTopLevelContainer()
 //--------------------------------------------------------------------------------------------------
 public void initialize(final IClientFactory clientFactory) {
   _clientFactory = clientFactory;
-  northData.setMargins(new Margins(5));
-  westData.setMargins(new Margins(0, 5, 0, 5));
-  westData.setCollapsible(true);
-  westData.setSplit(true);
-  eastData.setMargins(new Margins(0, 5, 0, 5));
-  southData.setMargins(new Margins(5));
-  westLayoutData = new BorderLayoutData(150);
-  bookClubMaintenanceWidget = new BookClubMaintenanceWidget(_clientFactory);
+  //  bookClubMaintenanceWidget = new BookClubMaintenanceWidget(_clientFactory);
   final IBookClubMaintenanceViewUiBinder binder = GWT.create(IBookClubMaintenanceViewUiBinder.class);
   binder.createAndBindUi(this);
   //  bookClubMaintenanceContainer.setWidget(bookClubListBox);
@@ -98,44 +55,44 @@ public void initialize(final IClientFactory clientFactory) {
   _clientFactory.getBookClubCache().loadAllBookClubs();
 } // initialize()
 //--------------------------------------------------------------------------------------------------
-@SuppressWarnings("unused")
-@UiHandler("newButton")
-public void onNewButtonSelect(final SelectEvent event) {
-  requestConfirmationToSaveCurrentChanges();
-  bookClubMaintenanceWidget.editBookClub(null);
-  //  _handlerRegistration.removeHandler();
-} // onNewButtonSelect()
+//@SuppressWarnings("unused")
+//@UiHandler("newButton")
+//public void onNewButtonSelect(final SelectEvent event) {
+//  requestConfirmationToSaveCurrentChanges();
+//  bookClubMaintenanceWidget.editBookClub(null);
+//  //  _handlerRegistration.removeHandler();
+//} // onNewButtonSelect()
 //--------------------------------------------------------------------------------------------------
 @Override
 public void onBookClubListPositionChangedEvent(final BookClubListPositionChangedEvent bookClubListPositionChangedEvent) {
-  final IBookClubProxy bookClub = bookClubListPositionChangedEvent.getBookClub();
-  if (bookClubListPositionChangedEvent.getRemoveIndex() >= 0) {
-    bookClubListBox.removeItem(bookClubListPositionChangedEvent.getRemoveIndex());
-  }
-  if (bookClubListPositionChangedEvent.getInsertIndex() >= 0) {
-    bookClubListBox.insertItem(bookClub.getName(), Integer.toString(bookClub.getId()),
-                               bookClubListPositionChangedEvent.getInsertIndex());
-  }
+  //  final IBookClubProxy bookClub = bookClubListPositionChangedEvent.getBookClub();
+  //  if (bookClubListPositionChangedEvent.getRemoveIndex() >= 0) {
+  //    bookClubListBox.removeItem(bookClubListPositionChangedEvent.getRemoveIndex());
+  //  }
+  //  if (bookClubListPositionChangedEvent.getInsertIndex() >= 0) {
+  //    bookClubListBox.insertItem(bookClub.getName(), Integer.toString(bookClub.getId()),
+  //                               bookClubListPositionChangedEvent.getInsertIndex());
+  //  }
 } // onBookClubListPositionChangedEvent()
 //--------------------------------------------------------------------------------------------------
-@SuppressWarnings("unused")
-@UiHandler("bookClubListBox")
-public void onBookClubListBoxChange(final ChangeEvent event) {
-  final int selectedIndex = bookClubListBox.getSelectedIndex();
-  if (selectedIndex >= 0) {
-    final int bookClubId = Integer.parseInt(bookClubListBox.getValue(selectedIndex));
-    _clientFactory.getEventBus().fireEvent(new BookClubSelectedEvent(bookClubId));
-  }
-} // onBookClubListBoxChange()
+//@SuppressWarnings("unused")
+//@UiHandler("bookClubListBox")
+//public void onBookClubListBoxChange(final ChangeEvent event) {
+//  final int selectedIndex = bookClubListBox.getSelectedIndex();
+//  if (selectedIndex >= 0) {
+//    final int bookClubId = Integer.parseInt(bookClubListBox.getValue(selectedIndex));
+//    _clientFactory.getEventBus().fireEvent(new BookClubSelectedEvent(bookClubId));
+//  }
+//} // onBookClubListBoxChange()
 //--------------------------------------------------------------------------------------------------
 @Override
 public void onBookClubNameChangeEvent(final BookClubNameChangeEvent bookClubNameChangeEvent) {
-  for (int listBoxIndex = 0; listBoxIndex < bookClubListBox.getItemCount(); ++listBoxIndex) {
-    if (Integer.valueOf(bookClubListBox.getValue(listBoxIndex)) == bookClubNameChangeEvent.getBookClub().getId()) {
-      bookClubListBox.setItemText(listBoxIndex, bookClubNameChangeEvent.getNewName());
-      break;
-    }
-  }
+  //  for (int listBoxIndex = 0; listBoxIndex < bookClubListBox.getItemCount(); ++listBoxIndex) {
+  //    if (Integer.valueOf(bookClubListBox.getValue(listBoxIndex)) == bookClubNameChangeEvent.getBookClub().getId()) {
+  //      bookClubListBox.setItemText(listBoxIndex, bookClubNameChangeEvent.getNewName());
+  //      break;
+  //    }
+  //  }
 } // onBookClubNameChangeEvent()
 //--------------------------------------------------------------------------------------------------
 /**
@@ -143,42 +100,42 @@ public void onBookClubNameChangeEvent(final BookClubNameChangeEvent bookClubName
  */
 @Override
 public void onBookClubSelectedEvent(final BookClubSelectedEvent bookClubSelectedEvent) {
-  requestConfirmationToSaveCurrentChanges();
-  final IBookClubProxy bookClub = _clientFactory.getBookClubCache().getBookClub(bookClubSelectedEvent.getBookClubId());
-  bookClubMaintenanceWidget.editBookClub(bookClub);
+  //  requestConfirmationToSaveCurrentChanges();
+  //  final IBookClubProxy bookClub = _clientFactory.getBookClubCache().getBookClub(bookClubSelectedEvent.getBookClubId());
+  //  bookClubMaintenanceWidget.editBookClub(bookClub);
 } // onBookClubSelectedEvent()
 //--------------------------------------------------------------------------------------------------
 @Override
 public void onBookClubsLoadedEvent(final BookClubsLoadedEvent bookClubsLoadedEvent) {
-  bookClubListBox.clear();
-  for (final IBookClubProxy bookClub : _clientFactory.getBookClubCache().getBookClubList()) {
-    bookClubListBox.addItem(bookClub.getName(), Integer.toString(bookClub.getId()));
-  }
+  //  bookClubListBox.clear();
+  //  for (final IBookClubProxy bookClub : _clientFactory.getBookClubCache().getBookClubList()) {
+  //    bookClubListBox.addItem(bookClub.getName(), Integer.toString(bookClub.getId()));
+  //  }
 } // onBookClubsLoadedEvent()
 //--------------------------------------------------------------------------------------------------
-@SuppressWarnings("unused")
-@UiHandler("saveButton")
-public void onSaveButtonSelect(final SelectEvent selectEvent) {
-  if (bookClubMaintenanceWidget.getBookClub() != null) {
-    bookClubMaintenanceWidget.saveCurrentChanges();
-  }
-} // onSaveButtonSelect()
+//@SuppressWarnings("unused")
+//@UiHandler("saveButton")
+//public void onSaveButtonSelect(final SelectEvent selectEvent) {
+//  if (bookClubMaintenanceWidget.getBookClub() != null) {
+//    bookClubMaintenanceWidget.saveCurrentChanges();
+//  }
+//} // onSaveButtonSelect()
 //--------------------------------------------------------------------------------------------------
-@SuppressWarnings("unused")
-@UiHandler("undoButton")
-public void onUndoButtonSelect(final SelectEvent selectEvent) {
-  bookClubMaintenanceWidget.undoCurrentChanges();
-} // onUndoButtonSelect()
+//@SuppressWarnings("unused")
+//@UiHandler("undoButton")
+//public void onUndoButtonSelect(final SelectEvent selectEvent) {
+//  bookClubMaintenanceWidget.undoCurrentChanges();
+//} // onUndoButtonSelect()
 //--------------------------------------------------------------------------------------------------
-private void requestConfirmationToSaveCurrentChanges() {
-  if (bookClubMaintenanceWidget.isChanged()) {
-    if (Window.confirm("Do you want to save the current changes?")) {
-      bookClubMaintenanceWidget.saveCurrentChanges();
-    }
-    else {
-      bookClubMaintenanceWidget.undoCurrentChanges();
-    }
-  }
-} // requestConfirmationToSaveCurrentChanges()
+//private void requestConfirmationToSaveCurrentChanges() {
+//  if (bookClubMaintenanceWidget.isChanged()) {
+//    if (Window.confirm("Do you want to save the current changes?")) {
+//      bookClubMaintenanceWidget.saveCurrentChanges();
+//    }
+//    else {
+//      bookClubMaintenanceWidget.undoCurrentChanges();
+//    }
+//  }
+//} // requestConfirmationToSaveCurrentChanges()
 //--------------------------------------------------------------------------------------------------
 }
