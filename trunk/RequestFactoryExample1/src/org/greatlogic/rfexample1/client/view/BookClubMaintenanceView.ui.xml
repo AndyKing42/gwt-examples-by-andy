@@ -2,7 +2,7 @@
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
-  xmlns:fap='urn:import:org.greatlogic.rfexample1.client.widget'>
+  xmlns:gl='urn:import:org.greatlogic.rfexample1.client.widget'>
   <g:ResizeLayoutPanel ui:field='topLevelPanel'>
     <g:SplitLayoutPanel ui:field='bookClubMaintenancePanel'>
       <g:west size='250'>
@@ -25,7 +25,7 @@
           <g:center>
             <g:ScrollPanel>
               <g:VerticalPanel>
-                <fap:BookClubMaintenanceWidget ui:field='bookClubMaintenanceWidget'/>
+                <gl:BookClubMaintenanceWidget ui:field='bookClubMaintenanceWidget'/>
               </g:VerticalPanel>
             </g:ScrollPanel>
           </g:center>
