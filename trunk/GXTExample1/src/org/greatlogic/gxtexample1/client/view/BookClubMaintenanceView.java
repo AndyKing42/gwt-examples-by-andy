@@ -11,10 +11,17 @@ import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent;
 import org.greatlogic.gxtexample1.client.event.BookClubsLoadedEvent.IBookClubsLoadedEventHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiFactory;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
+import com.sencha.gxt.core.client.Style.LayoutRegion;
+import com.sencha.gxt.widget.core.client.button.TextButton;
 import com.sencha.gxt.widget.core.client.container.BorderLayoutContainer;
+import com.sencha.gxt.widget.core.client.container.Viewport;
+import com.sencha.gxt.widget.core.client.event.SelectEvent;
+import com.sencha.gxt.widget.core.client.event.SelectEvent.SelectHandler;
 
 public class BookClubMaintenanceView extends Composite implements
                                                       IBookClubListPositionChangedEventHandler,
@@ -27,16 +34,16 @@ public class BookClubMaintenanceView extends Composite implements
 //@UiField(provided = true)
 //BookClubMaintenanceWidget bookClubMaintenanceWidget;
 @UiField
-BorderLayoutContainer  topLevelContainer;
+Viewport               viewport;
 
 private IClientFactory _clientFactory;
 //==================================================================================================
 public interface IBookClubMaintenanceViewUiBinder extends UiBinder<Widget, BookClubMaintenanceView> { //
 } // interface IBookClubMaintenanceViewUiBinder
 //==================================================================================================
-public BorderLayoutContainer getTopLevelContainer() {
-  return topLevelContainer;
-} // getTopLevelContainer()
+public Viewport getViewport() {
+  return viewport;
+} // getViewport()
 //--------------------------------------------------------------------------------------------------
 public void initialize(final IClientFactory clientFactory) {
   _clientFactory = clientFactory;
