@@ -1,6 +1,6 @@
 <!DOCTYPE ui:UiBinder SYSTEM 'http://dl.google.com/gwt/DTD/xhtml.ent'>
 <!--
-<ui:UiBinder
+  <ui:UiBinder
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:gxt='urn:import:com.sencha.gxt.widget.core.client'
@@ -8,156 +8,129 @@
   xmlns:container='urn:import:com.sencha.gxt.widget.core.client.container'
   xmlns:gl='urn:import:org.greatlogic.gxtexample1.client.widget'>
   <ui:with
-    type='com.sencha.gxt.core.client.util.Margins'
-    field='centerMargins'>
-    <ui:attributes
-      top='0'
-      right='0'
-      bottom='0'
-      left='0'/>
+  type='com.sencha.gxt.core.client.util.Margins'
+  field='centerMargins'>
+  <ui:attributes
+  top='0'
+  right='0'
+  bottom='0'
+  left='0'/>
   </ui:with>
   <ui:with
-    type='com.sencha.gxt.widget.core.client.container.MarginData'
-    field='centerLayoutData'>
-    <ui:attributes margins='{centerMargins}'/>
+  type='com.sencha.gxt.widget.core.client.container.MarginData'
+  field='centerLayoutData'>
+  <ui:attributes margins='{centerMargins}'/>
   </ui:with>
   <ui:with
-    type='com.sencha.gxt.core.client.util.Margins'
-    field='westMargins'>
-    <ui:attributes
-      top='0'
-      right='5'
-      bottom='0'
-      left='5'/>
+  type='com.sencha.gxt.core.client.util.Margins'
+  field='westMargins'>
+  <ui:attributes
+  top='0'
+  right='5'
+  bottom='0'
+  left='5'/>
+  </ui:with>
+  <ui:with
+  type='com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData'
+  field='westLayoutData'>
+  <ui:attributes
+  size='150'
+  margins='{westMargins}'
+  collapsible='true'
+  split='true'/>
+  </ui:with>
+  <container:Viewport ui:field='viewport'>
+  <container:BorderLayoutContainer>
+  <container:west layoutData='{westLayoutData}'>
+  <g:Label>Hey</g:Label>
+  </container:west>
+  <container:center layoutData='{centerLayoutData}'>
+  <g:Label>Hey</g:Label>
+  </container:center>
+  </container:BorderLayoutContainer>
+  </container:Viewport>
+  </ui:UiBinder>
+-->
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:container='urn:import:com.sencha.gxt.widget.core.client.container'
+  xmlns:gxt='urn:import:com.sencha.gxt.widget.core.client'
+  xmlns:menu="urn:import:com.sencha.gxt.widget.core.client.menu">
+  <ui:style>
+    .menuBorder {
+    	border-top: none;
+    }
+    
+    .margin {
+    	margin: 10px;
+    }
+  </ui:style>
+  <ui:with
+    type='com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData'
+    field='northLayoutData'>
+    <ui:attributes size='100'/>
   </ui:with>
   <ui:with
     type='com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData'
     field='westLayoutData'>
     <ui:attributes
       size='150'
-      margins='{westMargins}'
       collapsible='true'
       split='true'/>
   </ui:with>
+  <ui:with
+    type='com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData'
+    field='eastLayoutData'>
+    <ui:attributes size='150'/>
+  </ui:with>
+  <ui:with
+    type='com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData'
+    field='southLayoutData'>
+    <ui:attributes size='100'/>
+  </ui:with>
   <container:Viewport ui:field='viewport'>
-    <container:BorderLayoutContainer>
+    <container:BorderLayoutContainer borders='true'>
+      <container:north layoutData='{northLayoutData}'>
+        <g:MenuBar>
+          <g:MenuItem>
+            Higgledy
+            <g:MenuBar vertical="true">
+              <g:MenuItem>able</g:MenuItem>
+              <g:MenuItem>baker</g:MenuItem>
+              <g:MenuItem>charlie</g:MenuItem>
+            </g:MenuBar>
+          </g:MenuItem>
+          <g:MenuItem>
+            Piggledy
+            <g:MenuBar vertical="true">
+              <g:MenuItem>foo</g:MenuItem>
+              <g:MenuItem>bar</g:MenuItem>
+              <g:MenuItem>baz</g:MenuItem>
+            </g:MenuBar>
+          </g:MenuItem>
+          <g:MenuItem>
+            <b>Pop!</b>
+            <g:MenuBar vertical="true">
+              <g:MenuItem>uno</g:MenuItem>
+              <g:MenuItem>dos</g:MenuItem>
+              <g:MenuItem>tres</g:MenuItem>
+            </g:MenuBar>
+          </g:MenuItem>
+        </g:MenuBar>
+      </container:north>
       <container:west layoutData='{westLayoutData}'>
-        <g:Label>Hey</g:Label>
+        <container:SimpleContainer/>
       </container:west>
-      <container:center layoutData='{centerLayoutData}'>
-        <g:Label>Hey</g:Label>
+      <container:center>
+        <container:SimpleContainer/>
       </container:center>
+      <container:east layoutData='{eastLayoutData}'>
+        <container:SimpleContainer/>
+      </container:east>
+      <container:south layoutData='{southLayoutData}'>
+        <container:SimpleContainer/>
+      </container:south>
     </container:BorderLayoutContainer>
-  </container:Viewport>
-</ui:UiBinder>
--->
-<ui:UiBinder
-  xmlns:ui='urn:ui:com.google.gwt.uibinder'
-  xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
-  xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client"
-  xmlns:g="urn:import:com.google.gwt.user.client.ui">
-  <ui:with
-    type="com.sencha.gxt.core.client.util.Margins"
-    field="outerMargins">
-    <ui:attributes
-      top="5"
-      right="5"
-      bottom="5"
-      left="5"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.core.client.util.Margins"
-    field="northMargins">
-    <ui:attributes
-      top="5"
-      right="5"
-      bottom="5"
-      left="5"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.core.client.util.Margins"
-    field="westMargins">
-    <ui:attributes
-      top="0"
-      right="5"
-      bottom="0"
-      left="5"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.core.client.util.Margins"
-    field="eastMargins">
-    <ui:attributes
-      top="0"
-      right="5"
-      bottom="0"
-      left="5"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.core.client.util.Margins"
-    field="southMargins">
-    <ui:attributes
-      top="5"
-      right="5"
-      bottom="5"
-      left="5"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.widget.core.client.container.MarginData"
-    field="outerData">
-    <ui:attributes margins="{outerMargins}"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
-    field="northData">
-    <ui:attributes
-      size="100"
-      margins="{northMargins}"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
-    field="westData">
-    <ui:attributes
-      size="150"
-      margins="{westMargins}"
-      collapsible="true"
-      split="true"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
-    field="eastData">
-    <ui:attributes
-      size="150"
-      margins="{eastMargins}"/>
-  </ui:with>
-  <ui:with
-    type="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutData"
-    field="southData">
-    <ui:attributes
-      size="100"
-      margins="{southMargins}"/>
-  </ui:with>
-  <container:Viewport ui:field='viewport'>
-    <container:child layoutData="{outerData}">
-      <container:BorderLayoutContainer borders="true">
-        <container:north layoutData="{northData}">
-          <gxt:ContentPanel>
-            <g:Label>Hey</g:Label>
-          </gxt:ContentPanel>
-        </container:north>
-        <container:west layoutData="{westData}">
-          <gxt:ContentPanel/>
-        </container:west>
-        <container:center>
-          <gxt:ContentPanel headingText="BorderLayout UiBinder Example">
-          </gxt:ContentPanel>
-        </container:center>
-        <container:east layoutData="{eastData}">
-          <gxt:ContentPanel/>
-        </container:east>
-        <container:south layoutData="{southData}">
-          <gxt:ContentPanel/>
-        </container:south>
-      </container:BorderLayoutContainer>
-    </container:child>
   </container:Viewport>
 </ui:UiBinder>
