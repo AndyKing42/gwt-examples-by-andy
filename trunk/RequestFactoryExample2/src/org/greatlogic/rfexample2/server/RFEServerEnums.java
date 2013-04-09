@@ -17,7 +17,7 @@ ExternalIPCheckerSaveToFilename
 //--------------------------------------------------------------------------------------------------
 public enum ERFExampleSequence {
 UserId(1);
-private int _id;
+private final int _id;
 private ERFExampleSequence(final int id) {
   _id = id;
 } // enum ERFExampleSequence
@@ -35,11 +35,11 @@ public enum ERFExampleTable implements IGLTable {
 BookClub(BookClubCol.class),
 DBSequence(DBSequenceCol.class),
 User(UserCol.class);
-private Class<? extends Enum<?>> _columnEnumClass;
+private final Class<? extends Enum<?>> _columnEnumClass;
 private ERFExampleTable(final Class<? extends Enum<?>> columnEnumClass) {
   _columnEnumClass = columnEnumClass;
   GLDBUtil.registerTable(this);
-} // ECirrusTable()
+} // ERFExampleTable()
 @Override
 public String getAbbrev() {
   return _columnEnumClass.getSimpleName();
