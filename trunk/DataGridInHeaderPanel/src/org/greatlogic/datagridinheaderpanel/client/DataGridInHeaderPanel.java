@@ -26,7 +26,7 @@ Button                    add100RecordsButton;
 Button                    add10RecordsButton;
 @UiField
 Button                    addRecordButton;
-@UiField(provided = true)
+@UiField
 DataGrid<Record>          dataGrid;
 @UiField
 HeaderPanel               headerPanel;
@@ -46,7 +46,6 @@ private String _field1;
 
 @Override
 public void onModuleLoad() {
-  dataGrid = new DataGrid<Record>();
   _recordList = new ArrayList<Record>();
   final DataGridInHeaderPanelBinder binder = GWT.create(DataGridInHeaderPanelBinder.class);
   final Widget widget = binder.createAndBindUi(this);
