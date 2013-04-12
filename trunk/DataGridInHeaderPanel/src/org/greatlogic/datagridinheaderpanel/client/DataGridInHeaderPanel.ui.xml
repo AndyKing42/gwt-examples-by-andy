@@ -5,7 +5,10 @@
   <g:ResizeLayoutPanel ui:field='outerPanel'>
     <g:HeaderPanel ui:field='headerPanel'>
       <g:Label text='Top Panel'/>
-      <c:DataGrid ui:field='dataGrid'/>
+      <c:DataGrid
+        ui:field='dataGrid'
+        width='100%'
+        height='100%'/>
       <g:HorizontalPanel>
         <g:Button
           ui:field='addRecordButton'

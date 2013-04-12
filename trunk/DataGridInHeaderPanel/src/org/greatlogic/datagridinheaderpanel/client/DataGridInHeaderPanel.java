@@ -59,7 +59,7 @@ public void onModuleLoad() {
   RootLayoutPanel.get().add(widget);
 }
 
-@UiHandler("outerPanel")
+//@UiHandler("outerPanel")
 public void onOuterPanelResize(@SuppressWarnings("unused") final ResizeEvent event) {
   final Widget footerWidget = headerPanel.getFooterWidget();
   final int footerOffsetHeight = footerWidget == null ? 0 : footerWidget.getOffsetHeight();
