@@ -66,9 +66,11 @@ private ResizeHandler createLayoutPanelResizeHandler() {
   return new ResizeHandler() {
     @Override
     public void onResize(final ResizeEvent event) {
+      final Widget footerWidget = headerPanel.getFooterWidget();
+      final int footerOffsetHeight = footerWidget == null ? 0 : footerWidget.getOffsetHeight();
       final int dataGridHeight = headerPanel.getOffsetHeight() -
                                  headerPanel.getHeaderWidget().getOffsetHeight() -
-                                 headerPanel.getFooterWidget().getOffsetHeight();
+                                 footerOffsetHeight;
       dataGrid.setHeight((dataGridHeight < 0 ? 0 : dataGridHeight) + "px");
     }
   };
