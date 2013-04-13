@@ -1,0 +1,53 @@
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+  <g:TabLayoutPanel
+    barUnit='EM'
+    barHeight='3'>
+    <g:tab>
+      <g:header>Tab 1</g:header>
+      <g:HeaderPanel>
+        <g:Label>Tab 1 Header</g:Label>
+        <g:SplitLayoutPanel height='100%'>
+          <g:west size='100'>
+            <g:HeaderPanel>
+              <g:Label wordWrap='false'>West Header</g:Label>
+              <g:ResizeLayoutPanel height='100%'>
+                <g:ScrollPanel>
+                  <g:VerticalPanel>
+                    <g:Label wordWrap='false'>West Content</g:Label>
+                    <g:Label>West Content</g:Label>
+                    <g:Label>West Content</g:Label>
+                    <g:Label>West Content</g:Label>
+                    <g:Label>West Content</g:Label>
+                  </g:VerticalPanel>
+                </g:ScrollPanel>
+              </g:ResizeLayoutPanel>
+            </g:HeaderPanel>
+          </g:west>
+          <g:center>
+            <g:HeaderPanel>
+              <g:Label wordWrap='false'>Center Header</g:Label>
+              <g:ResizeLayoutPanel height='100%'>
+                <g:ScrollPanel>
+                  <g:VerticalPanel>
+                    <g:Label wordWrap='false'>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                    <g:Label>Center Content</g:Label>
+                  </g:VerticalPanel>
+                </g:ScrollPanel>
+              </g:ResizeLayoutPanel>
+            </g:HeaderPanel>
+          </g:center>
+        </g:SplitLayoutPanel>
+        <g:Label>Tab 1 Footer</g:Label>
+      </g:HeaderPanel>
+    </g:tab>
+  </g:TabLayoutPanel>
+</ui:UiBinder>
