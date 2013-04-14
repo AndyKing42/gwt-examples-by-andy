@@ -10,4 +10,11 @@ JavadocZIPFilename,
 PackagesHTMLFilename
 } // enum EConfigAD
 //--------------------------------------------------------------------------------------------------
+enum ELanguageConstruct {
+Class,
+Enum,
+Interface,
+Unknown
+} // enum ELanguageConstruct
+//--------------------------------------------------------------------------------------------------
 }
