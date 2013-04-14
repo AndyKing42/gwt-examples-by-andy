@@ -137,7 +137,7 @@ private void loadClassInfo(final ZipFile zipFile, final ZipEntry zipEntry) {
               }
               else if (classInfo.getDesc() == null) {
                 if (line.startsWith("<pre>")) {
-                  parseClassHeader(line, classInfo);
+                  classInfo.setIsAbstract(line.contains(" abstract "));
                 }
                 else if (line.contains("class=\"block\"")) {
                   classInfo.setDesc(parseClassDescLines(line, reader));
@@ -156,10 +156,6 @@ private void loadClassInfo(final ZipFile zipFile, final ZipEntry zipEntry) {
     GLLog.major("Failed to load the class file:" + zipEntry.getName(), e);
   }
 } // loadClassInfo()
-//--------------------------------------------------------------------------------------------------
-private void parseClassHeader(final String line, final ClassInfo classInfo) {
-  classInfo.setIsAbstract(line.contains(" abstract "));
-} // parseClassHeader()
 //--------------------------------------------------------------------------------------------------
 private String parseClassDescLines(final String line, final BufferedReader reader)
   throws IOException {
