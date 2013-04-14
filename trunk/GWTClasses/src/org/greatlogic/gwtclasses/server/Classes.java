@@ -1,6 +1,7 @@
 package org.greatlogic.gwtclasses.server;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
@@ -41,19 +42,7 @@ import com.greatlogic.glbase.gllib.GLLog;
  * <li>
  * <ul class="inheritance">
  * <li>com.google.gwt.user.client.ui.SplitLayoutPanel</li>
- * </ul>
- * </li>
- * </ul>
- * </li>
- * </ul>
- * </li>
- * </ul>
- * </li>
- * </ul>
- * </li>
- * </ul>
- * </li>
- * </ul>
+ * ... </li> and </ul> tags ...
  * <div class="description">
  * <ul class="blockList">
  * <li class="blockList">
@@ -65,13 +54,12 @@ import com.greatlogic.glbase.gllib.GLLog;
  * <br>
  * <pre>public class <span class="strong">SplitLayoutPanel</span>
  * extends <a href="../../../../../../com/google/gwt/user/client/ui/DockLayoutPanel.html" title="class in com.google.gwt.user.client.ui">DockLayoutPanel</a></pre>
- * <div class="block">A panel that adds user-positioned splitters between each of its child
- *  widgets.
- * 
+ * <div class="block">A panel that adds user-positioned splitters between each of its childwidgets.
  *  <p>
  */
 class Classes {
 //--------------------------------------------------------------------------------------------------
+private static final String          InterfaceIn = "title=\"interface in ";
 private static Object                _lock;
 
 private final Map<String, ClassInfo> _classInfoByClassNameMap;
@@ -101,7 +89,6 @@ private ClassInfo addClass(final String packageName, final String className) {
 private ClassInfo addClass(final String className) {
   ClassInfo result = _classInfoByClassNameMap.get(className);
   if (result == null) {
-    final String[] packageNames = className.split(".");
     result = new ClassInfo(className);
     _classInfoByClassNameMap.put(className, result);
   }
@@ -127,50 +114,36 @@ private void loadClassInfo(final ZipFile zipFile, final ZipEntry zipEntry) {
     try {
       ClassInfo classInfo = null;
       String packageName = null;
-      String classDesc = null;
+      String previousInheritanceClass = null;
       String line;
       do {
         line = reader.readLine();
         if (line != null) {
           if (line.contains("class=\"subTitle\"")) {
-            final int beginIndex = line.indexOf('>');
-            if (beginIndex > 0) {
-              final int endIndex = line.indexOf('<', beginIndex + 1);
-              packageName = line.substring(beginIndex + 1, endIndex);
-            }
+            packageName = parsePackageNameLine(line);
           }
           else if (packageName != null) {
             if (line.startsWith("<h2 title=")) {
-              final int beginIndex = line.indexOf(">Class ");
-              if (beginIndex > 0) {
-                final int endIndex = line.indexOf('<', beginIndex);
-                classInfo = addClass(packageName, line.substring(beginIndex + 7, endIndex));
-              }
+              classInfo = parseClassNameLine(line, packageName);
             }
             else if (classInfo != null) {
               if (line.contains("class=\"inheritance\"")) {
-                line = reader.readLine();
-                if (line != null && line.contains("<li>")) {
-                  loadInheritance(line);
-                }
+                previousInheritanceClass = parseInheritanceLine(reader.readLine(),
+                                                                previousInheritanceClass);
               }
               else if (line.contains("All Implemented Interfaces:")) {
-                line = reader.readLine();
-                if (line != null && line.contains("<dd>")) {
-                  loadInterfaces(classInfo, line);
-                }
+                parseInterfacesline(reader.readLine(), classInfo);
               }
-              else if (classDesc == null && line.contains("class=\"block\"")) {
-                do {
-                  classDesc = loadClassDesc(classDesc, line);
-                  line = reader.readLine();
-                } while (line != null && !line.trim().startsWith("<"));
-                classInfo.setDesc(classDesc);
+              else if (classInfo.getDesc() == null && line.contains("class=\"block\"")) {
+                classInfo.setDesc(parseClassDescLines(line, reader));
               }
             }
           }
         }
       } while (line != null);
+      if (classInfo != null && classInfo.getName().endsWith(".Panel")) {
+        GLLog.debug("Completed " + classInfo);
+      }
     }
     finally {
       reader.close();
@@ -181,34 +154,87 @@ private void loadClassInfo(final ZipFile zipFile, final ZipEntry zipEntry) {
   }
 } // loadClassInfo()
 //--------------------------------------------------------------------------------------------------
-private String loadClassDesc(final String classDesc, final String line) {
-  String result = classDesc == null ? "" : classDesc;
-  final int beginIndex = line.indexOf('>') + 1;
-  if (beginIndex < line.length()) {
-    result += line.substring(beginIndex);
+private String parseClassDescLines(final String line, final BufferedReader reader)
+  throws IOException {
+  String result = "";
+  String line2 = line;
+  do {
+    final int beginIndex = line2.indexOf('>') + 1;
+    if (beginIndex < line2.length()) {
+      result += line2.substring(beginIndex);
+    }
+    line2 = reader.readLine();
+  } while (line2 != null && !line2.trim().startsWith("<"));
+  return result;
+} // parseClassDescLines()
+//--------------------------------------------------------------------------------------------------
+private ClassInfo parseClassNameLine(final String line, final String packageName) {
+  ClassInfo result = null;
+  final int beginIndex = line.indexOf(">Class ");
+  if (beginIndex > 0) {
+    final int endIndex = line.indexOf('<', beginIndex);
+    result = addClass(packageName, line.substring(beginIndex + 7, endIndex));
   }
   return result;
-} // loadClassDesc()
+} // parseClassNameLine()
 //--------------------------------------------------------------------------------------------------
-private void loadInheritance(final String line) {
+private String parseInheritanceLine(final String line, final String previousInheritanceClass) {
+  String result = null;
+  if (line == null || !line.contains("<li>")) {
+    return result;
+  }
   final int beginIndex = line.contains("<li><a") ? line.indexOf('>', 5) + 1 : 4;
   if (beginIndex < 1) {
-    return;
+    return result;
   }
   final int endIndex = line.indexOf('<', beginIndex);
-  final String className = line.substring(beginIndex, endIndex);
-} // loadInheritance()
+  result = line.substring(beginIndex, endIndex);
+  if (previousInheritanceClass != null) {
+    final ClassInfo classInfo = addClass(result);
+    final ClassInfo parentClassInfo = addClass(previousInheritanceClass);
+    classInfo.setParentClassInfo(parentClassInfo);
+    parentClassInfo.addChildClassInfo(classInfo);
+  }
+  return result;
+} // parseInheritanceLine()
 //--------------------------------------------------------------------------------------------------
-private void loadInterfaces(final ClassInfo classInfo, final String line) {
-  int beginIndex = 0;
-  do {
-    beginIndex = line.indexOf('>', beginIndex);
-    if (beginIndex > 0 && beginIndex < line.length() - 1 &&
-        Character.isJavaIdentifierStart(line.charAt(beginIndex) + 1)) {
-      final int endIndex = line.indexOf('<', beginIndex);
-      classInfo.addInterface(line.substring(beginIndex + 1, endIndex < 0 ? line.length() : endIndex));
-    }
-  } while (beginIndex > 0);
+/**
+ * Extracts the interfaces from the HTML line of the form note that the following lines are actually
+ * all on one line in the HTML):
+ *   <dd><a href="../../../../../../com/google/gwt/event/logical/shared/HasAttachHandlers.html"
+ *   title="interface in com.google.gwt.event.logical.shared">HasAttachHandlers</a>,
+ *   <a href="../../../../../../com/google/gwt/event/shared/HasHandlers.html"
+ *   title="interface in com.google.gwt.event.shared">HasHandlers</a>,
+ *   <a href="../../../../../../com/google/gwt/user/client/EventListener.html"
+ *   title="interface in com.google.gwt.user.client">EventListener</a></dd>
+ */
+private void parseInterfacesline(final String line, final ClassInfo classInfo) {
+  if (classInfo.getName().endsWith(".Panel")) {
+    GLLog.debug(classInfo.toString());
+  }
+  if (line != null && line.contains("<dd>")) {
+    int beginIndex = 0;
+    do {
+      beginIndex = line.indexOf(InterfaceIn, beginIndex);
+      if (beginIndex > 0) {
+        int endIndex = line.indexOf("\">", beginIndex);
+        final String packageName = line.substring(beginIndex + InterfaceIn.length(), endIndex);
+        beginIndex = endIndex + 2;
+        endIndex = line.indexOf('<', beginIndex);
+        classInfo.addInterface(packageName + "." + line.substring(beginIndex, endIndex));
+      }
+    } while (beginIndex > 0);
+  }
 } // loadInterfaces()
+//--------------------------------------------------------------------------------------------------
+private String parsePackageNameLine(final String line) {
+  String result = null;
+  final int beginIndex = line.indexOf('>');
+  if (beginIndex > 0) {
+    final int endIndex = line.indexOf('<', beginIndex + 1);
+    result = line.substring(beginIndex + 1, endIndex);
+  }
+  return result;
+} // parsePackageNameLine()
 //--------------------------------------------------------------------------------------------------
 }
