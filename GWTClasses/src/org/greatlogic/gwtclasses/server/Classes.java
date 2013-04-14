@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.greatlogic.gwtclasses.server.IServerEnums.EConfigAD;
+import org.greatlogic.gwtclasses.server.IServerEnums.ELanguageConstruct;
 import com.google.common.collect.Maps;
 import com.greatlogic.glbase.gllib.GLConfig;
 import com.greatlogic.glbase.gllib.GLLog;
@@ -134,16 +135,18 @@ private void loadClassInfo(final ZipFile zipFile, final ZipEntry zipEntry) {
               else if (line.contains("All Implemented Interfaces:")) {
                 parseInterfacesline(reader.readLine(), classInfo);
               }
-              else if (classInfo.getDesc() == null && line.contains("class=\"block\"")) {
-                classInfo.setDesc(parseClassDescLines(line, reader));
+              else if (classInfo.getDesc() == null) {
+                if (line.startsWith("<pre>")) {
+                  parseClassHeader(line, classInfo);
+                }
+                else if (line.contains("class=\"block\"")) {
+                  classInfo.setDesc(parseClassDescLines(line, reader));
+                }
               }
             }
           }
         }
       } while (line != null);
-      if (classInfo != null && classInfo.getName().endsWith(".Panel")) {
-        GLLog.debug("Completed " + classInfo);
-      }
     }
     finally {
       reader.close();
@@ -153,6 +156,10 @@ private void loadClassInfo(final ZipFile zipFile, final ZipEntry zipEntry) {
     GLLog.major("Failed to load the class file:" + zipEntry.getName(), e);
   }
 } // loadClassInfo()
+//--------------------------------------------------------------------------------------------------
+private void parseClassHeader(final String line, final ClassInfo classInfo) {
+  classInfo.setIsAbstract(line.contains(" abstract "));
+} // parseClassHeader()
 //--------------------------------------------------------------------------------------------------
 private String parseClassDescLines(final String line, final BufferedReader reader)
   throws IOException {
@@ -170,10 +177,30 @@ private String parseClassDescLines(final String line, final BufferedReader reade
 //--------------------------------------------------------------------------------------------------
 private ClassInfo parseClassNameLine(final String line, final String packageName) {
   ClassInfo result = null;
-  final int beginIndex = line.indexOf(">Class ");
+  ELanguageConstruct languageConstruct = ELanguageConstruct.Unknown;
+  int beginIndex = line.indexOf(">Class ");
+  if (beginIndex > 0) {
+    languageConstruct = ELanguageConstruct.Class;
+    beginIndex += 7;
+  }
+  else {
+    beginIndex = line.indexOf(">Interface ");
+    if (beginIndex > 0) {
+      languageConstruct = ELanguageConstruct.Interface;
+      beginIndex += 11;
+    }
+    else {
+      beginIndex = line.indexOf(">Enum ");
+      if (beginIndex > 0) {
+        languageConstruct = ELanguageConstruct.Enum;
+        beginIndex += 6;
+      }
+    }
+  }
   if (beginIndex > 0) {
     final int endIndex = line.indexOf('<', beginIndex);
-    result = addClass(packageName, line.substring(beginIndex + 7, endIndex));
+    result = addClass(packageName, line.substring(beginIndex, endIndex));
+    result.setLanguageConstruct(languageConstruct);
   }
   return result;
 } // parseClassNameLine()
@@ -209,9 +236,6 @@ private String parseInheritanceLine(final String line, final String previousInhe
  *   title="interface in com.google.gwt.user.client">EventListener</a></dd>
  */
 private void parseInterfacesline(final String line, final ClassInfo classInfo) {
-  if (classInfo.getName().endsWith(".Panel")) {
-    GLLog.debug(classInfo.toString());
-  }
   if (line != null && line.contains("<dd>")) {
     int beginIndex = 0;
     do {

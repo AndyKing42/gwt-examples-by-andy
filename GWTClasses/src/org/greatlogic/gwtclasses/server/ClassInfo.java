@@ -1,6 +1,7 @@
 package org.greatlogic.gwtclasses.server;
 
 import java.util.Set;
+import org.greatlogic.gwtclasses.server.IServerEnums.ELanguageConstruct;
 import com.google.common.collect.Sets;
 
 class ClassInfo implements Comparable<ClassInfo> {
@@ -8,6 +9,8 @@ class ClassInfo implements Comparable<ClassInfo> {
 private final Set<ClassInfo> _childClassInfoSet;
 private String               _desc;
 private final Set<String>    _interfaceNameSet;
+private boolean              _isAbstract;
+private ELanguageConstruct   _languageConstruct;
 private final String         _name;
 private ClassInfo            _parentClassInfo;
 //--------------------------------------------------------------------------------------------------
@@ -41,6 +44,14 @@ String getName() {
 void setDesc(final String desc) {
   _desc = desc;
 } // setDesc()
+//--------------------------------------------------------------------------------------------------
+void setIsAbstract(final boolean isAbstract) {
+  _isAbstract = isAbstract;
+} // setIsAbstract()
+//--------------------------------------------------------------------------------------------------
+void setLanguageConstruct(final ELanguageConstruct languageConstruct) {
+  _languageConstruct = languageConstruct;
+} // setLanguageConstruct()
 //--------------------------------------------------------------------------------------------------
 void setParentClassInfo(final ClassInfo parentClassInfo) {
   _parentClassInfo = parentClassInfo;

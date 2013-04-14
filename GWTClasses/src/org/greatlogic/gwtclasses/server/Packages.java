@@ -55,9 +55,6 @@ boolean load(final ZipFile zipFile) {
     return false;
   }
   result = loadPackageInfo(zipFile, zipEntry);
-  for (final PackageInfo packageInfo : _packageInfoMap.values()) {
-    GLLog.debug(packageInfo.getName() + " -> " + packageInfo.getDesc());
-  }
   return result;
 } // load()
 //--------------------------------------------------------------------------------------------------
