@@ -55,9 +55,9 @@ RequestFactoryResender(final IClientFactory clientFactory) {
  */
 public void resend() {
   _resend = true;
-  IUserRequestContext _userRequestContext; // this could have been any request context
-  _userRequestContext = _clientFactory.getRequestFactory().newUserRequestContext();
-  _userRequestContext.save(null).fire(); // this could have been any request
+  IUserRequestContext userRequestContext; // this could have been any request context
+  userRequestContext = _clientFactory.getRequestFactory().newUserRequestContext();
+  userRequestContext.save(null).fire(); // this could have been any request
 } // resend()
 //--------------------------------------------------------------------------------------------------
 }
