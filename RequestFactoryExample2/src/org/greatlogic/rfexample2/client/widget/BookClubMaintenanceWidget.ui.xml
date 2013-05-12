@@ -6,13 +6,13 @@
       <g:Label>Name</g:Label>
       <g:TextBox
         ui:field='bookClubName'
-        width='300px'></g:TextBox>
+        width='300px'/>
     </g:HorizontalPanel>
     <g:HorizontalPanel>
       <g:Label>Description</g:Label>
       <g:TextBox
         ui:field='bookClubDesc'
-        width='300px'></g:TextBox>
+        width='300px'/>
     </g:HorizontalPanel>
   </g:VerticalPanel>
 </ui:UiBinder>
