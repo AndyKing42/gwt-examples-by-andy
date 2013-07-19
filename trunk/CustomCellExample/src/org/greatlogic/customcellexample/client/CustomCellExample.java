@@ -1,27 +1,37 @@
 package org.greatlogic.customcellexample.client;
 
 import java.util.ArrayList;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.ListDataProvider;
 
 public class CustomCellExample implements EntryPoint {
 
 @UiField
-DataGrid<PhoneRecord>          dataGrid;
+DataGrid<PhoneRecord>                 dataGrid;
+@UiField
+DataGrid<PhoneRecord>                 dataGrid2;
+@UiField
+TextBox                               textBox;
 
-private ArrayList<PhoneRecord> _phoneRecordList;
+private ListDataProvider<PhoneRecord> _phoneRecordDataProvider;
 
 //==================================================================================================
 
 private static class PhoneRecord {
 
-private final String _phoneNumber;
+private String _phoneNumber;
 
 PhoneRecord(final String phoneNumber) {
   _phoneNumber = phoneNumber;
@@ -37,24 +47,45 @@ interface CustomCellExampleBinder extends UiBinder<Widget, CustomCellExample> { 
 //==================================================================================================
 
 private void createGridColumns() {
-  final Column<PhoneRecord, String> nameColumn;
-  nameColumn = new Column<PhoneRecord, String>(new CustomCell("-")) {
+  final Column<PhoneRecord, String> phoneNumberColumn;
+  phoneNumberColumn = new Column<PhoneRecord, String>(new CustomCell(false, "-")) {
     @Override
     public String getValue(final PhoneRecord record) {
       return record._phoneNumber;
     }
   };
-  dataGrid.addColumn(nameColumn, "Date");
-  dataGrid.setColumnWidth(nameColumn, "25ex");
+  phoneNumberColumn.setFieldUpdater(new FieldUpdater<PhoneRecord, String>() {
+    @Override
+    public void update(final int index, final PhoneRecord phoneRecord, final String value) {
+      phoneRecord._phoneNumber = value;
+      _phoneRecordDataProvider.refresh();
+    }
+  });
+  dataGrid.addColumn(phoneNumberColumn, "Date");
+  dataGrid.setColumnWidth(phoneNumberColumn, "25ex");
+  final Column<PhoneRecord, String> phoneNumberColumn2;
+  phoneNumberColumn2 = new Column<PhoneRecord, String>(new CustomCell(true, "-")) {
+    @Override
+    public String getValue(final PhoneRecord record) {
+      return record._phoneNumber;
+    }
+  };
+  dataGrid2.addColumn(phoneNumberColumn2, "Date");
+  dataGrid2.setColumnWidth(phoneNumberColumn2, "25ex");
 }
 
-public void createSampleData() {
-  _phoneRecordList = new ArrayList<PhoneRecord>();
+public ArrayList<PhoneRecord> createSampleData() {
+  final ArrayList<PhoneRecord> result = new ArrayList<PhoneRecord>();
   for (int recordCount = 0; recordCount < 100; ++recordCount) {
-    _phoneRecordList.add(new PhoneRecord("1234567890"));
+    String phoneNumber;
+    do {
+      phoneNumber = "" + (Random.nextInt(800000000) + 200000000) + Random.nextInt(10);
+    } while (phoneNumber.charAt(1) == '9' || phoneNumber.charAt(3) == '0' ||
+             phoneNumber.charAt(3) == '1' ||
+             (phoneNumber.charAt(4) == '1' && phoneNumber.charAt(5) == '1'));
+    result.add(new PhoneRecord(phoneNumber));
   }
-  dataGrid.setRowData(_phoneRecordList);
-  dataGrid.setRowCount(_phoneRecordList.size(), true);
+  return result;
 }
 
 @Override
@@ -63,7 +94,14 @@ public void onModuleLoad() {
   final Widget widget = binder.createAndBindUi(this);
   RootLayoutPanel.get().add(widget);
   createGridColumns();
-  createSampleData();
+  _phoneRecordDataProvider = new ListDataProvider<CustomCellExample.PhoneRecord>(createSampleData());
+  _phoneRecordDataProvider.addDataDisplay(dataGrid);
+  _phoneRecordDataProvider.addDataDisplay(dataGrid2);
 }
+
+@UiHandler("button")
+public void onUndoButtonClick(@SuppressWarnings("unused") final ClickEvent clickEvent) {
+  textBox.setReadOnly(!textBox.isReadOnly());
+} // onUndoButtonClick()
 
 }
