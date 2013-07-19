@@ -14,11 +14,13 @@ import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
 public class CustomCell extends AbstractInputCell<String, CustomCellViewData> {
 
-private final String _separator;
+private final boolean _readOnly;
+private final String  _separator;
 
 //==================================================================================================
 
 public static class CustomCellViewData extends ViewData {
+
 public CustomCellViewData(final String value) {
   super(value);
 }
@@ -37,27 +39,43 @@ protected void setLastValue(final String value) {
 
 //==================================================================================================
 
-public CustomCell(final String separator) {
-  super(BrowserEvents.BLUR, BrowserEvents.CHANGE, BrowserEvents.FOCUS);
+public CustomCell(final boolean readOnly, final String separator) {
+  super(BrowserEvents.CHANGE);
+  _readOnly = readOnly;
   _separator = separator;
 }
 
 @Override
 protected void finishEditing(final Element parent, final String value, final Object key,
                              final ValueUpdater<String> valueUpdater) {
-  final String newValue = getInputElement(parent).getValue();
-  parent.setInnerSafeHtml(getSafeHtml(newValue));
   CustomCellViewData viewData = getViewData(key);
-  if (viewData == null) {
-    viewData = new CustomCellViewData(value);
-    setViewData(key, viewData);
-  }
-  viewData.setCurrentValue(newValue);
-  if (valueUpdater != null && !viewData.getCurrentValue().equals(viewData.getLastValue())) {
+  final String newValue = unformatValue(getInputElement(parent).getValue());
+  final boolean valueChanged = viewData == null || !newValue.equals(viewData.getLastValue());
+  if (valueChanged) {
+    if (viewData == null) {
+      viewData = new CustomCellViewData("");
+      setViewData(key, viewData);
+    }
+    viewData.setCurrentValue(newValue);
     viewData.setLastValue(newValue);
-    valueUpdater.update(newValue);
+    if (valueUpdater != null) {
+      valueUpdater.update(newValue);
+    }
   }
   super.finishEditing(parent, newValue, key, valueUpdater);
+}
+
+/**
+ * Formats a value into the display format.
+ * @param value The raw (unformatted) value.
+ * @return The formatted value, which will be displayed to the user.
+ */
+protected String formatValue(final String value) {
+  if (value.length() != 10) {
+    return value;
+  }
+  return value.substring(0, 3) + _separator + value.substring(3, 6) + _separator +
+         value.substring(6);
 }
 
 @Override
@@ -65,13 +83,10 @@ protected InputElement getInputElement(final Element parent) {
   return super.getInputElement(parent).<InputElement> cast();
 }
 
-private SafeHtml getSafeHtml(final String phoneNumber) {
-  String html = "<input type='text' tabindex='-1'";
-  if (phoneNumber != null && !phoneNumber.isEmpty()) {
-    html += " value='" + phoneNumber + "'";
-  }
-  html += "/>";
-  return SafeHtmlUtils.fromTrustedString(html);
+private SafeHtml getSafeHtml(final String value) {
+  return SafeHtmlUtils.fromTrustedString("<input type='text' tabindex='-1' value='" +
+                                         formatValue(value) + "'" +
+                                         (_readOnly ? " readonly='true'" : "") + "/>");
 }
 
 @Override
@@ -88,14 +103,6 @@ public void onBrowserEvent(final Context context, final Element parent, final St
   if (eventType.equals(BrowserEvents.CHANGE)) {
     finishEditing(parent, value, key, valueUpdater);
   }
-  else if (eventType.equals(BrowserEvents.KEYUP)) {
-    CustomCellViewData viewData = getViewData(key);
-    if (viewData == null) {
-      viewData = new CustomCellViewData(value);
-      setViewData(key, viewData);
-    }
-    viewData.setCurrentValue(inputElement.getValue());
-  }
 }
 
 @Override
@@ -111,6 +118,19 @@ public void render(final Context context, final String value, final SafeHtmlBuil
   }
   final String currentValue = viewData == null ? value : viewData.getCurrentValue();
   sb.append(getSafeHtml(currentValue));
+}
+
+/**
+ * Removes formatting from a value that was entered by the user. For example, if the user enters a
+ * date value containing "/" characters this method could remove the "/" characters, and move the
+ * components of the date into year, month, and day order.
+ * @param value The value that was received from the user.
+ * @return The value without formatting.
+ */
+protected String unformatValue(final String value) {
+  String result = value.length() > 1 && value.charAt(0) == '1' ? value.substring(1) : value;
+  result = result.length() > 1 && result.charAt(0) == '-' ? result.substring(1) : result;
+  return result.length() == 12 ? result.replaceAll(_separator, "") : result;
 }
 
 }
