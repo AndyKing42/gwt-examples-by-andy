@@ -8,7 +8,6 @@ import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 
@@ -83,24 +82,18 @@ protected InputElement getInputElement(final Element parent) {
   return super.getInputElement(parent).<InputElement> cast();
 }
 
-private SafeHtml getSafeHtml(final String value) {
-  return SafeHtmlUtils.fromTrustedString("<input type='text' tabindex='-1' value='" +
-                                         formatValue(value) + "'" +
-                                         (_readOnly ? " readonly='true'" : "") + "/>");
-}
-
 @Override
 public void onBrowserEvent(final Context context, final Element parent, final String value,
                            final NativeEvent event, final ValueUpdater<String> valueUpdater) {
   super.onBrowserEvent(context, parent, value, event, valueUpdater);
-  final InputElement inputElement = getInputElement(parent);
-  final Element target = event.getEventTarget().cast();
-  if (!inputElement.isOrHasChild(target)) {
-    return;
-  }
   final String eventType = event.getType();
-  final Object key = context.getKey();
   if (eventType.equals(BrowserEvents.CHANGE)) {
+    final InputElement inputElement = getInputElement(parent);
+    final Element target = event.getEventTarget().cast();
+    if (!inputElement.isOrHasChild(target)) {
+      return;
+    }
+    final Object key = context.getKey();
     finishEditing(parent, value, key, valueUpdater);
   }
 }
@@ -117,7 +110,9 @@ public void render(final Context context, final String value, final SafeHtmlBuil
     viewData = null;
   }
   final String currentValue = viewData == null ? value : viewData.getCurrentValue();
-  sb.append(getSafeHtml(currentValue));
+  sb.append(SafeHtmlUtils.fromTrustedString("<input type='text' tabindex='-1' value='" +
+                                            formatValue(currentValue) + "'" +
+                                            (_readOnly ? " readonly='true'" : "") + "/>"));
 }
 
 /**
