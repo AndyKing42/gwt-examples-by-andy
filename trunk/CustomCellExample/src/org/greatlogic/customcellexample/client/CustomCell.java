@@ -121,9 +121,7 @@ public void render(final Context context, final String value, final SafeHtmlBuil
 }
 
 /**
- * Removes formatting from a value that was entered by the user. For example, if the user enters a
- * date value containing "/" characters this method could remove the "/" characters, and move the
- * components of the date into year, month, and day order.
+ * Removes formatting from a value that was entered by the user.
  * @param value The value that was received from the user.
  * @return The value without formatting.
  */

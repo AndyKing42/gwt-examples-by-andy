@@ -3,15 +3,9 @@
   xmlns:g='urn:import:com.google.gwt.user.client.ui'
   xmlns:c='urn:import:com.google.gwt.user.cellview.client'>
   <g:DockLayoutPanel unit='EM'>
-    <g:north size="10">
-      <g:Button ui:field="button">Push</g:Button>
-    </g:north>
-    <g:north size="10">
-      <g:TextBox ui:field="textBox"></g:TextBox>
-    </g:north>
     <g:west size='20'>
       <c:DataGrid
-        ui:field='dataGrid'
+        ui:field='dataGrid1'
         width='100%'
         height='100%'/>
     </g:west>
