@@ -4,26 +4,21 @@ import java.util.ArrayList;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
 public class CustomCellExample implements EntryPoint {
 
 @UiField
-DataGrid<PhoneRecord>                 dataGrid;
+DataGrid<PhoneRecord>                 dataGrid1;
 @UiField
 DataGrid<PhoneRecord>                 dataGrid2;
-@UiField
-TextBox                               textBox;
 
 private ListDataProvider<PhoneRecord> _phoneRecordDataProvider;
 
@@ -61,8 +56,8 @@ private void createGridColumns() {
       _phoneRecordDataProvider.refresh();
     }
   });
-  dataGrid.addColumn(phoneNumberColumn, "Date");
-  dataGrid.setColumnWidth(phoneNumberColumn, "25ex");
+  dataGrid1.addColumn(phoneNumberColumn, "Date");
+  dataGrid1.setColumnWidth(phoneNumberColumn, "25ex");
   final Column<PhoneRecord, String> phoneNumberColumn2;
   phoneNumberColumn2 = new Column<PhoneRecord, String>(new CustomCell(true, "-")) {
     @Override
@@ -95,13 +90,8 @@ public void onModuleLoad() {
   RootLayoutPanel.get().add(widget);
   createGridColumns();
   _phoneRecordDataProvider = new ListDataProvider<CustomCellExample.PhoneRecord>(createSampleData());
-  _phoneRecordDataProvider.addDataDisplay(dataGrid);
+  _phoneRecordDataProvider.addDataDisplay(dataGrid1);
   _phoneRecordDataProvider.addDataDisplay(dataGrid2);
 }
-
-@UiHandler("button")
-public void onUndoButtonClick(@SuppressWarnings("unused") final ClickEvent clickEvent) {
-  textBox.setReadOnly(!textBox.isReadOnly());
-} // onUndoButtonClick()
 
 }
