@@ -7,6 +7,12 @@ import com.google.gwt.user.cellview.client.CellWidget;
 
 public class CustomCellWidget extends CellWidget<String> {
 
+@UiConstructor
+public CustomCellWidget(final boolean readOnly, final String separator) {
+  super(new CustomCell(readOnly, separator));
+  addHandler(createBlurHandler(), BlurEvent.getType());
+}
+
 private BlurHandler createBlurHandler() {
   return new BlurHandler() {
     @Override
@@ -14,12 +20,6 @@ private BlurHandler createBlurHandler() {
       redraw();
     }
   };
-}
-
-@UiConstructor
-public CustomCellWidget(final boolean readOnly, final String separator) {
-  super(new CustomCell(readOnly, separator));
-  addHandler(createBlurHandler(), BlurEvent.getType());
 }
 
 }
