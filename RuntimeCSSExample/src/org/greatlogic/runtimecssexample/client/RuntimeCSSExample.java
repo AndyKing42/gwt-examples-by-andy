@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.LinkElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
@@ -85,6 +88,13 @@ public ArrayList<PhoneRecord> createSampleData() {
 
 @Override
 public void onModuleLoad() {
+  Window.alert("GWT.getModuleBaseURL():" + GWT.getModuleBaseURL());
+  // http://127.0.0.1:8888/runtimecssexample/
+  final LinkElement linkElement = Document.get().createLinkElement();
+  linkElement.setRel("stylesheet");
+  linkElement.setType("text/css");
+  linkElement.setHref(GWT.getModuleBaseURL() + "css/custom-1.css");
+  Document.get().getElementsByTagName("head").getItem(0).appendChild(linkElement);
   final RuntimeCSSExampleBinder binder = GWT.create(RuntimeCSSExampleBinder.class);
   final Widget widget = binder.createAndBindUi(this);
   RootLayoutPanel.get().add(widget);
