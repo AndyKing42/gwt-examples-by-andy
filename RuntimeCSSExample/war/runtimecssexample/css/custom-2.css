@@ -22,11 +22,11 @@ pre {
 }
 
 body {
-	color: #bbbbbb; /* andy was: black; */
+	color: black;
 	margin: 10px;
 	border: 0px;
 	padding: 0px;
-	background: aqua; /* andy was: #fff; */
+	background: #fff;
 	direction: ltr;
 }
 
@@ -340,10 +340,7 @@ select {
 }
 
 .gwt-Label {
-	/* andy - this had no properties originally */
-	background: #555555;
-	color: #dddddd;
-	cursor: hand;
+	
 }
 
 .gwt-ListBox {
@@ -630,7 +627,7 @@ select {
 .gwt-PopupPanelGlass {
 	background-color: #000;
 	opacity: 0.3;
-	filter: alpha(opacity =           30);
+	filter: alpha(opacity = 30);
 }
 
 .gwt-PushButton-up,.gwt-PushButton-up-hovering,.gwt-PushButton-up-disabled,.gwt-PushButton-down,.gwt-PushButton-down-hovering,.gwt-PushButton-down-disabled
@@ -665,7 +662,7 @@ select {
 	border: 1px solid #bbb;
 	cursor: default;
 	opacity: .5;
-	filter: alpha(opacity =           45);
+	filter: alpha(opacity = 45);
 	zoom: 1;
 }
 
@@ -692,7 +689,7 @@ select {
 	border: 1px outset #ccc;
 	cursor: default;
 	opacity: 0.5;
-	filter: alpha(opacity =           45);
+	filter: alpha(opacity = 45);
 	zoom: 1;
 }
 
@@ -1226,7 +1223,7 @@ select {
 	cursor: default;
 	opacity: .5;
 	zoom: 1;
-	filter: alpha(opacity =           45);
+	filter: alpha(opacity = 45);
 }
 
 .gwt-ToggleButton-down,.gwt-ToggleButton-down-hovering,.gwt-ToggleButton-down-disabled
@@ -1255,7 +1252,7 @@ select {
 	cursor: default;
 	opacity: .5;
 	zoom: 1;
-	filter: alpha(opacity =           45);
+	filter: alpha(opacity = 45);
 }
 
 .gwt-Tree .gwt-TreeItem {

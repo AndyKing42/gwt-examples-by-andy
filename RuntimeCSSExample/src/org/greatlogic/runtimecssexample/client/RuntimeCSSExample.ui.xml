@@ -13,6 +13,13 @@
           separator='-'
           value=''
           width='100px'/>
+        <g:Label>CSS</g:Label>
+        <g:ListBox ui:field='cssListBox'>
+          <g:item>custom-1</g:item>
+          <g:item>custom-2</g:item>
+          <g:item>custom-3</g:item>
+        </g:ListBox>
+        <g:Button>Button</g:Button>
       </g:HorizontalPanel>
     </g:north>
     <g:west size='20'>
