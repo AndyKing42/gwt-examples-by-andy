@@ -26,7 +26,7 @@ body {
 	margin: 10px;
 	border: 0px;
 	padding: 0px;
-	background: aqua; /* andy was: #fff; */
+	background: #fff;
 	direction: ltr;
 }
 
@@ -341,9 +341,9 @@ select {
 
 .gwt-Label {
 	/* andy - this had no properties originally */
-	background: #555555;
-	color: #dddddd;
-	cursor: hand;
+	background: #555555 !important;
+	color: #dddddd !important;
+	cursor: hand !important;
 }
 
 .gwt-ListBox {
