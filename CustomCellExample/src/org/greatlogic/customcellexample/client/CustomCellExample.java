@@ -56,7 +56,7 @@ private void createGridColumns() {
       _phoneRecordDataProvider.refresh();
     }
   });
-  dataGrid1.addColumn(phoneNumberColumn, "Editable Date");
+  dataGrid1.addColumn(phoneNumberColumn, "Editable Phone Number");
   dataGrid1.setColumnWidth(phoneNumberColumn, "25ex");
   final Column<PhoneRecord, String> phoneNumberColumn2;
   phoneNumberColumn2 = new Column<PhoneRecord, String>(new CustomCell(true, "-")) {
@@ -65,7 +65,7 @@ private void createGridColumns() {
       return record._phoneNumber;
     }
   };
-  dataGrid2.addColumn(phoneNumberColumn2, "Read-only Date");
+  dataGrid2.addColumn(phoneNumberColumn2, "Read-only Phone Number");
   dataGrid2.setColumnWidth(phoneNumberColumn2, "25ex");
 }
 
