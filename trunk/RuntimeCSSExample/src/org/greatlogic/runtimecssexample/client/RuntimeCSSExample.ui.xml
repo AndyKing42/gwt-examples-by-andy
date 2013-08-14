@@ -1,38 +1,25 @@
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
-  xmlns:g='urn:import:com.google.gwt.user.client.ui'
-  xmlns:c='urn:import:com.google.gwt.user.cellview.client'
-  xmlns:cce='urn:import:org.greatlogic.runtimecssexample.client'>
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
   <g:DockLayoutPanel unit='EM'>
-    <g:north size='2'>
-      <g:HorizontalPanel>
-        <g:Label>Phone Number</g:Label>
-        <cce:CustomCellWidget
-          ui:field='customCellWidget'
-          readOnly='false'
-          separator='-'
-          value=''
-          width='100px'/>
-        <g:Label>CSS</g:Label>
-        <g:ListBox ui:field='cssListBox'>
-          <g:item>custom-1</g:item>
-          <g:item>custom-2</g:item>
-          <g:item>custom-3</g:item>
-        </g:ListBox>
-        <g:Button>Button</g:Button>
-      </g:HorizontalPanel>
-    </g:north>
-    <g:west size='20'>
-      <c:DataGrid
-        ui:field='dataGrid1'
-        width='100%'
-        height='100%'/>
-    </g:west>
-    <g:west size='20'>
-      <c:DataGrid
-        ui:field='dataGrid2'
-        width='100%'
-        height='100%'/>
-    </g:west>
+    <g:center>
+      <g:TabLayoutPanel
+        barHeight='3'
+        barUnit='EM'>
+        <g:tab>
+          <g:header size='7'>
+            <b>HTML</b>
+            header
+          </g:header>
+          <g:Label>able</g:Label>
+        </g:tab>
+        <g:tab>
+          <g:customHeader size='7'>
+            <g:Label>Custom header</g:Label>
+          </g:customHeader>
+          <g:Label>baker</g:Label>
+        </g:tab>
+      </g:TabLayoutPanel>
+    </g:center>
   </g:DockLayoutPanel>
 </ui:UiBinder>
