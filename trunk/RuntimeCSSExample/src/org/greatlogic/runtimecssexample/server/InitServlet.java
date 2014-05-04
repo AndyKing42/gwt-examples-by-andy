@@ -85,7 +85,7 @@ private void getClassHierarchy(final ClassLoader classLoader, final Class<?> bas
 @Override
 public void init() {
   final String configFilename = "cfg/RCSSE.cfg";
-  GLUtil.initializeProgram(new RCSSEProgram(), null, null, //
+  GLUtil.initializeProgram(new RCSSEProgram(), null, null, false, //
                            "<args ConfigFilename='" + configFilename + "'/>");
   //  getClassHierarchy(UIObject.class.getClassLoader(), UIObject.class);
 }
